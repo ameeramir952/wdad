@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>המטבח של ודאד - תפריט הזמנות</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-green: #27ae60;
+            --whatsapp-green: #25D366;
+            --card-shadow: 0 10px 20px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-image: url('bg.jpg.jpg'); 
+            background-color: #f4f4f4;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 20px;
+            padding-bottom: 120px; /* מקום לבר התחתון */
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- כותרת ראשית --- */
+        .header-hero {
+            text-align: center;
+            padding: 30px 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        h1 { 
+            font-family: 'Amatic SC', cursive;
+            font-size: 3.8rem; 
+            margin: 0;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-top: 5px;
+            display: inline-block;
+            border-bottom: 2px solid var(--accent-green);
+            padding-bottom: 3px;
+        }
+
+        /* --- עיצוב הכרטיסיות החדש (Card Style) --- */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px; /* רווח בין הכרטיסים */
+        }
+
+        .menu-item {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden; /* מבטיח שהתמונה לא תצא מהפינות העגולות */
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px); /* אפקט הרמה עדין */
+        }
+
+        /* התמונה - עכשיו גדולה ומרשימה */
+        .item-image {
+            width: 100%;
+            height: 220px; /* גובה קבוע ומרשים */
+            object-fit: cover; /* חותך את התמונה יפה */
+            display: block;
+        }
+
+        /* האזור התחתון של הכרטיס */
+        .item-details {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .item-text h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+
+        .price-tag {
+            font-size: 1.2rem;
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        /* קלט הכמות - מעוצב ככפתור גדול */
+        .qty-wrapper {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 5px;
+            border: 1px solid #e9ecef;
+        }
+
+        .qty-input {
+            width: 50px;
+            height: 40px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 1.3rem;
+            font-family: 'Rubik', sans-serif;
+            font-weight: bold;
+            color: var(--primary-color);
+            outline: none;
+        }
+        
+        /* תווית קטנה מעל הקלט */
+        .qty-label {
+            display: block;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #999;
+            margin-bottom: -5px;
+        }
+
+        /* --- הבר הצף (Sticky Footer) --- */
+        .sticky-footer {
+            position: fixed;
+            bottom: 20px; /* קצת מעל התחתית למראה צף */
+            left: 50%;
+            transform: translateX(-50%) translateY(150%); /* מוסתר בהתחלה */
+            width: 90%;
+            max-width: 550px;
+            background: #2c3e50; /* רקע כהה לקונטרסט */
+            color: white;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            padding: 10px 20px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* אנימציה קופצנית */
+        }
+
+        .sticky-footer.active {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .cart-info {
+            display: flex;
+            flex-direction: column;
+            padding-right: 10px;
+        }
+        
+        .cart-total-label { font-size: 0.8rem; opacity: 0.7; }
+        .cart-total-amount { font-size: 1.3rem; font-weight: bold; color: #fff; }
+
+        .btn-whatsapp {
+            background-color: var(--whatsapp-green);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            transition: transform 0.2s;
+        }
+
+        .btn-whatsapp:active { transform: scale(0.95); }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-hero">
+            <h1>המטבח של ודאד</h1>
+            <div class="subtitle">🌿 אוכל גלילי אותנטי 🌿</div>
+        </div>
+
+        <div class="menu-list">
+            
+            <div class="menu-item" data-name="עוף ממולא" data-price="200">
+                <img src="chicken.jpg.png" alt="עוף ממולא" class="item-image">
+                
+                <div class="item-details">
+                    <div class="item-text">
+                        <h3>עוף ממולא</h3>
+                        <div class="price-tag">200 ₪</div>
+                    </div>
+                    
+                    <div class="qty-wrapper">
+                        <span class="qty-label">כמות</span>
+                        <input type="number" min="0" value="" placeholder="0" class="qty-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-name="מקלובה" data-price="180">
+                <img src="maqluba.jpg.png" alt="מקלובה" class="item-image">
+                <div class="item-details">
+                    <div class="item-text">
+                        <h3>מקלובה</h3>
+                        <div class="price-tag">180 ₪</div>
+                    </div>
+                    <div class="qty-wrapper">
+                        <span class="qty-label">כמות</span>
+                        <input type="number" min="0" value="" placeholder="0" class="qty-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-name="סיר עלי גפן" data-price="200">
+                <img src="bg.jpg.1.png" alt="עלי גפן" class="item-image">
+                <div class="item-details">
+                    <div class="item-text">
+                        <h3>סיר עלי גפן</h3>
+                        <div class="price-tag">200 ₪</div>
+                    </div>
+                    <div class="qty-wrapper">
+                        <span class="qty-label">כמות</span>
+                        <input type="number" min="0" value="" placeholder="0" class="qty-input">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="sticky-footer" id="stickyFooter">
+        <div class="cart-info">
+            <span class="cart-total-label">סה"כ לתשלום:</span>
+            <span><span id="totalPrice" class="cart-total-amount">0</span> ₪</span>
+        </div>
+        
+        <button class="btn-whatsapp" onclick="sendToWhatsapp()">
+            <span>הזמן עכשיו</span>
+            <i class="fab fa-whatsapp"></i>
+        </button>
+    </div>
+
+    <script>
+        // לוגיקה זהה - רק מחשבת ושולחת
+        const inputs = document.querySelectorAll('.qty-input');
+        const footer = document.getElementById('stickyFooter');
+        const totalDisplay = document.getElementById('totalPrice');
+
+        function calculateTotal() {
+            let total = 0;
+            let hasItems = false;
+
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const price = parseInt(item.dataset.price);
+                const qtyInput = item.querySelector('.qty-input');
+                const qty = Math.max(0, parseInt(qtyInput.value) || 0);
+
+                if (qty > 0) {
+                    total += price * qty;
+                    hasItems = true;
+                }
+            });
+
+            totalDisplay.innerText = total;
+
+            if (hasItems) {
+                footer.classList.add('active');
+            } else {
+                footer.classList.remove('active');
+            }
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('input', calculateTotal);
+        });
+
+        function sendToWhatsapp() {
+            const myNumber = "972507125200";
+            let message = "*היי ודאד, אשמח להזמין:* \n\n";
+            let total = 0;
+            let itemsCount = 0;
+
+            document.querySelectorAll('.menu-item').forEach(item => {
+                const name = item.dataset.name;
+                const price = parseInt(item.dataset.price);
+                const qtyInput = item.querySelector('.qty-input');
+                const qty = Math.max(0, parseInt(qtyInput.value) || 0);
+
+                if (qty > 0) {
+                    let itemTotal = price * qty;
+                    message += `▪️ ${name}: ${qty} יח' (${itemTotal} ₪)\n`;
+                    total += itemTotal;
+                    itemsCount++;
+                }
+            });
+
+            if (itemsCount === 0) return;
+
+            message += `\n💰 *סה"כ: ${total} ש"ח*`;
+            message += "\n\n📍 _אשמח לפרטים לגבי איסוף/משלוח_";
+
+            let url = "https://wa.me/" + myNumber + "?text=" + encodeURIComponent(message);
+            
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            if (isMobile) {
+                window.location.href = url;
+            } else {
+                window.open(url, '_blank');
+            }
+        }
+    </script>
+</body>
+</html>
