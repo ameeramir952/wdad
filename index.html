@@ -74,7 +74,7 @@
 
         .item-image {
             width: 100%;
-            height: 140px;
+            height: 160px; /* תוקן לגודל בינוני וטוב */
             object-fit: cover;
             display: block;
         }
@@ -277,99 +277,93 @@
 
         <div class="menu-list">
 
-          <div class="menu-item" data-name="קישוא ממולא" data-base-price="120" data-price="60">
-    <img src="קישואים.jpg" alt="קישוא ממולא" class="item-image">
-    
-    <div class="item-details" style="flex-direction: column; align-items: stretch;">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div class="item-text">
-                <h3>קישוא ממולא</h3>
-                <div class="price-tag">120 ₪</div>
+            <div class="menu-item" data-name="קישוא ממולא" data-base-price="120" data-price="120">
+                <img src="קישואים.jpg" alt="קישוא ממולא" class="item-image">
+                
+                <div class="item-details" style="flex-direction: column; align-items: stretch;">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div class="item-text">
+                            <h3>קישוא ממולא</h3>
+                            <div class="price-tag">120 ₪</div>
+                        </div>
+                        <div class="qty-wrapper">
+                            <span class="qty-label">כמות</span>
+                            <input type="number" min="0" placeholder="0" class="qty-input" oninput="updateUI()">
+                        </div>
+                    </div>
+
+                    <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
+                        
+                        <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+                            <strong>סוג:</strong><br>
+                            <label style="margin-left: 10px;">
+                                <input type="radio" name="zuc_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
+                                צמחוני
+                            </label>
+                            <label>
+                                <input type="radio" name="zuc_type" value="30" data-text="בשרי" onchange="calculateItemPrice(this)"> 
+                                בשרי (+30 ₪)
+                            </label>
+                        </div>
+
+                        <div>
+                            <strong>גודל סיר:</strong><br>
+                            <label style="margin-left: 10px;">
+                                <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                                קטן
+                            </label>
+                            <label style="margin-left: 10px;">
+                                <input type="radio" name="zuc_size" value="20" data-text="בינוני" onchange="calculateItemPrice(this)"> 
+                                בינוני (+20 ₪)
+                            </label>
+                            <label>
+                                <input type="radio" name="zuc_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
+                                גדול (+60 ₪)
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <div class="qty-wrapper">
-                <span class="qty-label">כמות</span>
-                <input type="number" min="0" placeholder="0" class="qty-input" oninput="updateUI()">
+
+            <div class="menu-item" data-name="עוף ממולא" data-base-price="200" data-price="200">
+                <img src="chicken.jpg.png" alt="עוף ממולא" class="item-image">
+                
+                <div class="item-details" style="flex-direction: column; align-items: stretch;">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div class="item-text">
+                            <h3>עוף ממולא</h3>
+                            <div class="price-tag">200 ₪</div>
+                        </div>
+                        <div class="qty-wrapper">
+                            <span class="qty-label">כמות</span>
+                            <input type="number" min="0" placeholder="0" class="qty-input" oninput="updateUI()">
+                        </div>
+                    </div>
+
+                    <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem; margin-top: 5px;">
+                        <strong>תוספת לבחירה:</strong><br>
+                        
+                        <label style="margin-left: 15px; cursor: pointer;">
+                            <input type="radio" name="chicken_side" value="0" 
+                                   data-text="עם סלט" 
+                                   checked 
+                                   onchange="calculateItemPrice(this)"> 
+                            סלט (ללא תוספת)
+                        </label>
+
+                        <label style="cursor: pointer;">
+                            <input type="radio" name="chicken_side" value="60" 
+                                   data-text="עם מרק" 
+                                   onchange="calculateItemPrice(this)"> 
+                            מרק (+60 ₪)
+                        </label>
+                    </div>
+
+                </div>
             </div>
-        </div>
-
-        <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
-            
-            <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
-                <strong>סוג:</strong><br>
-                <label style="margin-left: 10px;">
-                    <input type="radio" name="zuc_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
-                    צמחוני
-                </label>
-                <label>
-                    <input type="radio" name="zuc_type" value="30" data-text="בשרי" onchange="calculateItemPrice(this)"> 
-                    בשרי (+30 ₪)
-                </label>
-            </div>
-
-            <div>
-                <strong>גודל סיר:</strong><br>
-                <label style="margin-left: 10px;">
-                    <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
-                    קטן
-                </label>
-                <label style="margin-left: 10px;">
-                    <input type="radio" name="zuc_size" value="20" data-text="בינוני" onchange="calculateItemPrice(this)"> 
-                    בינוני (+40₪)
-                </label>
-                <label>
-                    <input type="radio" name="zuc_size" value="40" data-text="גדול" onchange="calculateItemPrice(this)"> 
-                    גדול (+60₪)
-                </label>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-      
-        </div>
-    </div>
-</div>
-            
-            
-           <div class="menu-item" data-name="עוף ממולא" data-base-price="200" data-price="200">
-    <img src="chicken.jpg.png" alt="עוף ממולא" class="item-image">
-    
-    <div class="item-details" style="flex-direction: column; align-items: stretch;">
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div class="item-text">
-                <h3>עוף ממולא</h3>
-                <div class="price-tag">200 ₪</div>
-            </div>
-            <div class="qty-wrapper">
-                <span class="qty-label">כמות</span>
-                <input type="number" min="0" placeholder="0" class="qty-input" oninput="updateUI()">
-            </div>
-        </div>
-
-        <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem; margin-top: 5px;">
-            <strong>תוספת לבחירה:</strong><br>
-            
-            <label style="margin-left: 15px; cursor: pointer;">
-                <input type="radio" name="chicken_side" value="0" 
-                       data-text="עם סלט" 
-                       checked 
-                       onchange="calculateItemPrice(this)"> 
-                סלט (ללא תוספת)
-            </label>
-
-            <label style="cursor: pointer;">
-                <input type="radio" name="chicken_side" value="60" 
-                       data-text="עם מרק" 
-                       onchange="calculateItemPrice(this)"> 
-                מרק (+60 ₪)
-            </label>
-        </div>
-
-    </div>
-</div>
 
             <div class="menu-item" data-name="מקלובה" data-price="180">
                 <img src="maqluba.jpg.png" alt="מקלובה" class="item-image">
@@ -385,7 +379,7 @@
                 </div>
             </div>
             
-             <div class="menu-item" data-name="מגדרה" data-price="120">
+            <div class="menu-item" data-name="מגדרה" data-price="120">
                 <img src="מגדרה.jpg" alt="120" class="item-image">
                 <div class="item-details">
                     <div class="item-text">
@@ -398,8 +392,6 @@
                     </div>
                 </div>
             </div>
-
-            
 
             <div class="menu-item" data-name="סיר עלי גפן" data-price="200">
                 <img src="bg.jpg.1.png" alt="עלי גפן" class="item-image">
@@ -414,9 +406,8 @@
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="delivery-card">
+        </div> <div class="delivery-card">
             <h3>פרטי הזמנה</h3>
             
             <div class="input-group">
@@ -503,6 +494,48 @@
         // האזנה לשינויים בכל השדות
         document.querySelectorAll('.qty-input').forEach(input => input.addEventListener('input', updateUI));
         
+        // פונקציה חכמה לחישוב תוספות (עובדת גם לקישוא וגם לעוף)
+        function calculateItemPrice(element) {
+            // 1. מציאת האלמנט הראשי של המנה
+            const item = element.closest('.menu-item');
+            
+            // 2. שליפת מחיר הבסיס (אם אין base-price, משתמשים במחיר הרגיל)
+            const basePrice = parseInt(item.dataset.basePrice) || parseInt(item.dataset.price);
+            
+            let totalAddons = 0;
+            let descriptionParts = [];
+
+            // 3. מעבר על כל כפתורי הרדיו המסומנים בתוך המנה הזאת
+            const checkedRadios = item.querySelectorAll('input[type="radio"]:checked');
+            
+            checkedRadios.forEach(radio => {
+                // הוספת הערך הכספי (אם יש)
+                totalAddons += parseInt(radio.value) || 0;
+                
+                // הוספת הטקסט לתיאור (כדי שיופיע בוואטסאפ)
+                if (radio.dataset.text) {
+                    descriptionParts.push(radio.dataset.text);
+                }
+            });
+
+            const finalPrice = basePrice + totalAddons;
+            
+            // 4. עדכון התצוגה והנתונים
+            item.querySelector('.price-tag').innerText = finalPrice + " ₪";
+            item.dataset.price = finalPrice;
+            
+            // יצירת השם המלא לוואטסאפ
+            const originalName = item.querySelector('h3').innerText;
+            if (descriptionParts.length > 0) {
+                item.dataset.name = `${originalName} (${descriptionParts.join(', ')})`;
+            } else {
+                item.dataset.name = originalName;
+            }
+
+            // 5. עדכון הסל הכללי
+            updateUI();
+        }
+
         function sendToWhatsapp() {
             // איסוף נתונים
             const customerName = document.getElementById('customerName').value.trim();
@@ -558,60 +591,10 @@
 
             message += `\n💰 *סה"כ: ${total} ₪*`;
 
-            // שליחה - שיטה בטוחה יותר לניידים
+            // שליחה
             const url = `https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`;
             window.location.href = url;
         }
-
-       function calculateItemPrice(element) {
-    // 1. מציאת האלמנט הראשי של המנה
-    const item = element.closest('.menu-item');
-    
-    // 2. שליפת מחיר הבסיס הקבוע
-    const basePrice = parseInt(item.dataset.basePrice);
-    
-    // 3. מציאת האופציות המסומנות כרגע (סוג וגודל)
-    const selectedType = item.querySelector('input[name$="_type"]:checked');
-    const selectedSize = item.querySelector('input[name$="_size"]:checked');
-    
-    // 4. חישוב התוספות
-    const typeCost = parseInt(selectedType.value) || 0;
-    const sizeCost = parseInt(selectedSize.value) || 0;
-    
-    const finalPrice = basePrice + typeCost + sizeCost;
-    
-    // 5. בניית השם המלא לוואטסאפ (למשל: קישוא ממולא - בשרי, סיר גדול)
-    // אנו לוקחים את השם המקורי (ללא הסוגריים) כדי לא ליצור שכפולים
-    let originalName = "קישוא ממולא"; // אפשר למשוך דינמית אם רוצים
-    const fullName = `${originalName} (${selectedType.dataset.text}, ${selectedSize.dataset.text})`;
-    
-    // 6. עדכון הנתונים
-    item.dataset.price = finalPrice;
-    item.dataset.name = fullName;
-    item.querySelector('.price-tag').innerText = finalPrice + " ₪";
-    
-    // 7. עדכון הסל הכללי
-    updateUI();
-}
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
