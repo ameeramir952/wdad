@@ -276,6 +276,31 @@
         </div>
 
         <div class="menu-list">
+
+            function updateDishVariant(input) {
+    // זיהוי הכרטיסייה הספציפית
+    const item = input.closest('.menu-item');
+    
+    // שליפת הנתונים מהכפתור שנלחץ
+    const basePrice = parseInt(input.dataset.basePrice);
+    const extraCost = parseInt(input.value);
+    const baseName = input.dataset.baseName;
+    const variantName = input.dataset.variant;
+    
+    // חישוב המחיר החדש
+    const newPrice = basePrice + extraCost;
+    
+    // עדכון הנתונים "מאחורי הקלעים" עבור הסקריפט של הוואטסאפ
+    item.dataset.price = newPrice;
+    item.dataset.name = `${baseName} (${variantName})`;
+    
+    // עדכון המחיר שמוצג ללקוח על המסך
+    item.querySelector('.price-tag').innerText = newPrice + " ₪";
+    
+    // קריאה לפונקציה הראשית כדי לעדכן את הסה"כ למטה
+    updateUI();
+}
+            
             
             <div class="menu-item" data-name="עוף ממולא" data-price="200">
                 <img src="chicken.jpg.png" alt="עוף ממולא" class="item-image">
@@ -485,6 +510,7 @@
     </script>
 </body>
 </html>
+
 
 
 
