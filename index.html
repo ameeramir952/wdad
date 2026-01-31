@@ -350,19 +350,43 @@
 </div>
             
             
-            <div class="menu-item" data-name="עוף ממולא" data-price="200">
-                <img src="chicken.jpg.png" alt="עוף ממולא" class="item-image">
-                <div class="item-details">
-                    <div class="item-text">
-                        <h3>עוף ממולא</h3>
-                        <div class="price-tag">200 ₪</div>
-                    </div>
-                    <div class="qty-wrapper">
-                        <span class="qty-label">כמות</span>
-                        <input type="number" min="0" value="" placeholder="0" class="qty-input">
-                    </div>
-                </div>
+           <div class="menu-item" data-name="עוף ממולא" data-base-price="200" data-price="200">
+    <img src="chicken.jpg.png" alt="עוף ממולא" class="item-image">
+    
+    <div class="item-details" style="flex-direction: column; align-items: stretch;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div class="item-text">
+                <h3>עוף ממולא</h3>
+                <div class="price-tag">200 ₪</div>
             </div>
+            <div class="qty-wrapper">
+                <span class="qty-label">כמות</span>
+                <input type="number" min="0" placeholder="0" class="qty-input" oninput="updateUI()">
+            </div>
+        </div>
+
+        <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem; margin-top: 5px;">
+            <strong>תוספת לבחירה:</strong><br>
+            
+            <label style="margin-left: 15px; cursor: pointer;">
+                <input type="radio" name="chicken_side" value="0" 
+                       data-text="עם סלט" 
+                       checked 
+                       onchange="calculateItemPrice(this)"> 
+                סלט (ללא תוספת)
+            </label>
+
+            <label style="cursor: pointer;">
+                <input type="radio" name="chicken_side" value="60" 
+                       data-text="עם מרק" 
+                       onchange="calculateItemPrice(this)"> 
+                מרק (+60 ₪)
+            </label>
+        </div>
+
+    </div>
+</div>
 
             <div class="menu-item" data-name="מקלובה" data-price="180">
                 <img src="maqluba.jpg.png" alt="מקלובה" class="item-image">
@@ -589,6 +613,7 @@
     </script>
 </body>
 </html>
+
 
 
 
