@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>המטבח של ודאד</title>
-
-    <link rel="icon" type="לוגו.png" href="לוגו.png">
+    <link rel="icon" type="image/png" href="לוגו.png">
 
     <meta property="og:title" content="המטבח של ודאד - אוכל גלילי אותנטי">
     <meta property="og:description" content="הזמנת אוכל ביתי משובח: ממולאים, מקלובה, עלי גפן ועוד. משלוחים ואיסוף עצמי.">
@@ -16,14 +14,6 @@
     <meta property="og:type" content="website">
     <meta property="og:locale" content="he_IL">
 
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-    /* ... המשך הקוד הרגיל שלך ... */
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>המטבח של ודאד</title>
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -65,7 +55,6 @@
             position: relative;
         }
 
-        /* כפתור ניווט בראש הדף */
         .waze-btn-header {
             display: inline-block;
             margin-top: 10px;
@@ -166,7 +155,6 @@
             color: #999;
         }
 
-        /* עיצוב כרטיסיית המשלוח */
         .delivery-card {
             background: #fff;
             border-radius: 20px;
@@ -254,7 +242,6 @@
             box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1);
         }
 
-        /* אנימציה לשדה הכתובת */
         #addressWrapper {
             overflow: hidden;
             transition: all 0.4s ease-in-out;
@@ -314,7 +301,6 @@
             white-space: nowrap;
         }
 
-        /* כפתור Waze הצף */
         .btn-waze-float {
             background-color: #fff;
             color: #2c3e50;
@@ -334,7 +320,6 @@
         .btn-waze-float:hover {
             color: var(--waze-blue);
         }
-
     </style>
 </head>
 <body>
@@ -380,7 +365,7 @@
                         </div>
                         <div>
                             <strong>גודל סיר:</strong><br>
-                            <label style="margin-left: 10px;">
+                             <label style="margin-left: 10px;">
                                 <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
                                 קטן
                             </label>
@@ -397,9 +382,7 @@
                 </div>
             </div>
 
-
-
-             <div class="menu-item" data-name="פריקה" data-base-price="120" data-price="120">
+            <div class="menu-item" data-name="פריקה" data-base-price="120" data-price="120">
                 <img src="פריקה.jpg" alt="פריקה" class="item-image">
                 
                 <div class="item-details" style="flex-direction: column; align-items: stretch;">
@@ -418,26 +401,26 @@
                         <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
                             <strong>סוג:</strong><br>
                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="freekeh_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
                                 צמחוני
                             </label>
                             <label>
-                                <input type="radio" name="zuc_type" value="30" data-text="בשרי" onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="freekeh_type" value="30" data-text="בשרי" onchange="calculateItemPrice(this)"> 
                                 תוספת עוף (+50 ₪)
                             </label>
                         </div>
                         <div>
                             <strong>גודל סיר:</strong><br>
                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="freekeh_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
                                 קטן
                             </label>
                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="40" data-text="בינוני" onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="freekeh_size" value="40" data-text="בינוני" onchange="calculateItemPrice(this)"> 
                                 בינוני (+40₪)
                             </label>
                             <label>
-                                <input type="radio" name="zuc_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="freekeh_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
                                 גדול (+60 ₪)
                             </label>
                         </div>
@@ -445,8 +428,7 @@
                 </div>
             </div>
 
-
-          <div class="menu-item" data-name="פריקה" data-base-price="120" data-price="120">
+            <div class="menu-item" data-name="כרוב ממולא" data-base-price="120" data-price="120">
                 <img src="כרוב ממולא.jpg" alt="כרוב ממולא" class="item-image">
                 
                 <div class="item-details" style="flex-direction: column; align-items: stretch;">
@@ -465,38 +447,32 @@
                         <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
                             <strong>סוג:</strong><br>
                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="cabbage_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
                                 צמחוני
                             </label>
                             <label>
-                                <input type="radio" name="zuc_type" value="30" data-text="בשרי" onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="cabbage_type" value="30" data-text="בשרי" onchange="calculateItemPrice(this)"> 
                                 בשרי (בשר טחון) (+50 ₪)
                             </label>
                         </div>
                         <div>
                             <strong>גודל סיר:</strong><br>
                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="cabbage_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
                                 קטן
                             </label>
                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="40" data-text="בינוני" onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="cabbage_size" value="40" data-text="בינוני" onchange="calculateItemPrice(this)"> 
                                 בינוני (+40₪)
                             </label>
                             <label>
-                                <input type="radio" name="zuc_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="cabbage_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
                                 גדול (+60 ₪)
                             </label>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-          
-
-          
 
             <div class="menu-item" data-name="עוף ממולא" data-base-price="200" data-price="200">
                 <img src="chicken.jpg.png" alt="עוף ממולא" class="item-image">
@@ -639,7 +615,9 @@
                 </div>
             </div>
 
-        </div> <div class="delivery-card">
+        </div> 
+        
+        <div class="delivery-card">
             <h3>פרטי הזמנה</h3>
             
             <div class="input-group">
@@ -836,10 +814,3 @@
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
