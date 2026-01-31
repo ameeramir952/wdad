@@ -277,29 +277,40 @@
 
         <div class="menu-list">
 
-            function updateDishVariant(input) {
-    // זיהוי הכרטיסייה הספציפית
-    const item = input.closest('.menu-item');
+           <div class="menu-item" data-name="קישוא ממולא (צמחוני)" data-price="60">
+    <img src="zucchini.jpg" alt="קישוא ממולא" class="item-image">
     
-    // שליפת הנתונים מהכפתור שנלחץ
-    const basePrice = parseInt(input.dataset.basePrice);
-    const extraCost = parseInt(input.value);
-    const baseName = input.dataset.baseName;
-    const variantName = input.dataset.variant;
-    
-    // חישוב המחיר החדש
-    const newPrice = basePrice + extraCost;
-    
-    // עדכון הנתונים "מאחורי הקלעים" עבור הסקריפט של הוואטסאפ
-    item.dataset.price = newPrice;
-    item.dataset.name = `${baseName} (${variantName})`;
-    
-    // עדכון המחיר שמוצג ללקוח על המסך
-    item.querySelector('.price-tag').innerText = newPrice + " ₪";
-    
-    // קריאה לפונקציה הראשית כדי לעדכן את הסה"כ למטה
-    updateUI();
-}
+    <div class="item-details" style="flex-wrap: wrap;">
+        <div class="item-text">
+            <h3>קישוא ממולא</h3>
+            <div class="price-tag">60 ₪</div>
+        </div>
+        <div class="qty-wrapper">
+            <span class="qty-label">כמות</span>
+            <input type="number" min="0" placeholder="0" class="qty-input">
+        </div>
+
+        <div style="width: 100%; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee; font-size: 0.9rem;">
+            <label style="margin-left: 15px; cursor: pointer;">
+                <input type="radio" name="zucchini_type" value="0" 
+                       data-variant="צמחוני" 
+                       data-base-name="קישוא ממולא" 
+                       data-base-price="60" 
+                       checked 
+                       onchange="updateDishVariant(this)"> 
+                צמחוני
+            </label>
+            <label style="cursor: pointer;">
+                <input type="radio" name="zucchini_type" value="30" 
+                       data-variant="בשרי" 
+                       data-base-name="קישוא ממולא" 
+                       data-base-price="60" 
+                       onchange="updateDishVariant(this)"> 
+                בשרי (+30 ₪)
+            </label>
+        </div>
+    </div>
+</div>
             
             
             <div class="menu-item" data-name="עוף ממולא" data-price="200">
@@ -507,9 +518,34 @@
             const url = `https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`;
             window.location.href = url;
         }
+
+        function updateDishVariant(input) {
+    // זיהוי הכרטיסייה הספציפית
+    const item = input.closest('.menu-item');
+    
+    // שליפת הנתונים מהכפתור שנלחץ
+    const basePrice = parseInt(input.dataset.basePrice);
+    const extraCost = parseInt(input.value);
+    const baseName = input.dataset.baseName;
+    const variantName = input.dataset.variant;
+    
+    // חישוב המחיר החדש
+    const newPrice = basePrice + extraCost;
+    
+    // עדכון הנתונים "מאחורי הקלעים" עבור הסקריפט של הוואטסאפ
+    item.dataset.price = newPrice;
+    item.dataset.name = `${baseName} (${variantName})`;
+    
+    // עדכון המחיר שמוצג ללקוח על המסך
+    item.querySelector('.price-tag').innerText = newPrice + " ₪";
+    
+    // קריאה לפונקציה הראשית כדי לעדכן את הסה"כ למטה
+    updateUI();
+}
     </script>
 </body>
 </html>
+
 
 
 
