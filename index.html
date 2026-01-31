@@ -12,6 +12,7 @@
             --primary-color: #2c3e50;
             --accent-green: #27ae60;
             --whatsapp-green: #25D366;
+            --waze-blue: #33ccff;
             --card-shadow: 0 10px 20px rgba(0,0,0,0.08);
         }
 
@@ -41,6 +42,27 @@
             border-radius: 20px;
             margin-bottom: 30px;
             box-shadow: var(--card-shadow);
+            position: relative;
+        }
+
+        /* כפתור ניווט בראש הדף */
+        .waze-btn-header {
+            display: inline-block;
+            margin-top: 10px;
+            background-color: #fff;
+            color: #2c3e50;
+            border: 1px solid #ddd;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        
+        .waze-btn-header:hover {
+            background-color: #f0f8ff;
+            border-color: var(--waze-blue);
         }
 
         h1 { 
@@ -74,7 +96,7 @@
 
         .item-image {
             width: 100%;
-            height: 160px; /* תוקן לגודל בינוני וטוב */
+            height: 160px;
             object-fit: cover;
             display: block;
         }
@@ -238,25 +260,30 @@
             color: white;
             border-radius: 50px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-            padding: 12px 25px;
+            padding: 12px 15px;
             z-index: 9999;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: transform 0.4s ease-out;
+            gap: 10px;
         }
 
         .sticky-footer.active {
             transform: translateX(-50%) translateY(0);
         }
         
+        .cart-info {
+            flex-grow: 1;
+        }
+
         .cart-total-amount { font-size: 1.4rem; font-weight: bold; }
 
         .btn-whatsapp {
             background-color: var(--whatsapp-green);
             color: white;
             border: none;
-            padding: 10px 25px;
+            padding: 10px 20px;
             border-radius: 50px;
             font-size: 1rem;
             font-weight: bold;
@@ -264,7 +291,30 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
+
+        /* כפתור Waze הצף */
+        .btn-waze-float {
+            background-color: #fff;
+            color: #2c3e50;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            text-decoration: none;
+        }
+        
+        .btn-waze-float:hover {
+            color: var(--waze-blue);
+        }
+
     </style>
 </head>
 <body>
@@ -273,6 +323,10 @@
         <div class="header-hero">
             <h1>המטבח של ודאד</h1>
             <div class="subtitle">🌿 אוכל גלילי אותנטי 🌿</div>
+            <br>
+            <a href="#" onclick="openWaze()" class="waze-btn-header">
+                <i class="fab fa-waze"></i> נווט לעסק
+            </a>
         </div>
 
         <div class="menu-list">
@@ -281,7 +335,6 @@
                 <img src="קישואים.jpg" alt="קישוא ממולא" class="item-image">
                 
                 <div class="item-details" style="flex-direction: column; align-items: stretch;">
-                    
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <div class="item-text">
                             <h3>קישוא ממולא</h3>
@@ -294,7 +347,6 @@
                     </div>
 
                     <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
-                        
                         <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
                             <strong>סוג:</strong><br>
                             <label style="margin-left: 10px;">
@@ -306,7 +358,6 @@
                                 בשרי (+30 ₪)
                             </label>
                         </div>
-
                         <div>
                             <strong>גודל סיר:</strong><br>
                             <label style="margin-left: 10px;">
@@ -315,14 +366,13 @@
                             </label>
                             <label style="margin-left: 10px;">
                                 <input type="radio" name="zuc_size" value="20" data-text="בינוני" onchange="calculateItemPrice(this)"> 
-                                בינוני (+40 ₪)
+                                בינוני (+20 ₪)
                             </label>
                             <label>
                                 <input type="radio" name="zuc_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
                                 גדול (+60 ₪)
                             </label>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -331,7 +381,6 @@
                 <img src="chicken.jpg.png" alt="עוף ממולא" class="item-image">
                 
                 <div class="item-details" style="flex-direction: column; align-items: stretch;">
-                    
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                         <div class="item-text">
                             <h3>עוף ממולא</h3>
@@ -345,141 +394,126 @@
 
                     <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem; margin-top: 5px;">
                         <strong>תוספת לבחירה:</strong><br>
-                        
                         <label style="margin-left: 15px; cursor: pointer;">
-                            <input type="radio" name="chicken_side" value="0" 
-                                   data-text="עם סלט" 
-                                   checked 
-                                   onchange="calculateItemPrice(this)"> 
+                            <input type="radio" name="chicken_side" value="0" data-text="עם סלט" checked onchange="calculateItemPrice(this)"> 
                             סלט (ללא תוספת)
                         </label>
-
                         <label style="cursor: pointer;">
-                            <input type="radio" name="chicken_side" value="60" 
-                                   data-text="עם מרק" 
-                                   onchange="calculateItemPrice(this)"> 
+                            <input type="radio" name="chicken_side" value="60" data-text="עם מרק" onchange="calculateItemPrice(this)"> 
                             מרק (+60 ₪)
-                      
                         </label>
-
-
-                        
-                       
-
-                        
                     </div>
-
                 </div>
             </div>
 
-            <div class="menu-item" data-name="מקלובה" data-price="150">
+            <div class="menu-item" data-name="מקלובה" data-base-price="150" data-price="150">
                 <img src="maqluba.jpg.png" alt="מקלובה" class="item-image">
-                <div class="item-details">
-                    <div class="item-text">
-                        <h3>מקלובה</h3>
-                        <div class="price-tag">150 ₪</div>
-                    </div>
-                    <div class="qty-wrapper">
-                        <span class="qty-label">כמות</span>
-                            <input type="number" min="0" value="" placeholder="0" class="qty-input">
-
-
-
-                        
-                          <div>
-                            <strong>גודל סיר:</strong><br>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
-                                קטן
-                            </label>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="20" data-text="בינוני" onchange="calculateItemPrice(this)"> 
-                                בינוני (+50 ₪)
-                            </label>
-                            <label>
-                                <input type="radio" name="zuc_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
-                                גדול (+100 ₪)
-                            </label>
+                
+                <div class="item-details" style="flex-direction: column; align-items: stretch;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div class="item-text">
+                            <h3>מקלובה</h3>
+                            <div class="price-tag">150 ₪</div>
                         </div>
+                        <div class="qty-wrapper">
+                            <span class="qty-label">כמות</span>
+                            <input type="number" min="0" placeholder="0" class="qty-input" oninput="updateUI()">
+                        </div>
+                    </div>
 
-
-
-                        
+                    <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
+                         <strong>גודל סיר:</strong><br>
+                        <label style="margin-left: 10px;">
+                            <input type="radio" name="makluba_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                            קטן
+                        </label>
+                        <label style="margin-left: 10px;">
+                            <input type="radio" name="makluba_size" value="50" data-text="בינוני" onchange="calculateItemPrice(this)"> 
+                            בינוני (+50 ₪)
+                        </label>
+                        <label>
+                            <input type="radio" name="makluba_size" value="100" data-text="גדול" onchange="calculateItemPrice(this)"> 
+                            גדול (+100 ₪)
+                        </label>
                     </div>
                 </div>
             </div>
             
-            <div class="menu-item" data-name="מגדרה" data-price="120">
+            <div class="menu-item" data-name="מגדרה" data-base-price="120" data-price="120">
                 <img src="מגדרה.jpg" alt="120" class="item-image">
-                <div class="item-details">
-                    <div class="item-text">
-                        <h3>מגדרה</h3>
-                        <div class="price-tag">120 ₪</div>
-                    </div>
-                    <div class="qty-wrapper">
-                        <span class="qty-label">כמות</span>
-                            <input type="number" min="0" value="" placeholder="0" class="qty-input">
-
-
-
-                        <div>
-                            <strong>גודל סיר:</strong><br>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
-                                קטן
-                            </label>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="20" data-text="בינוני" onchange="calculateItemPrice(this)"> 
-                                בינוני (+30 ₪)
-                            </label>
-                            <label>
-                                <input type="radio" name="zuc_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
-                                גדול (+50 ₪)
-                            </label>
+                
+                <div class="item-details" style="flex-direction: column; align-items: stretch;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div class="item-text">
+                            <h3>מגדרה</h3>
+                            <div class="price-tag">120 ₪</div>
                         </div>
+                        <div class="qty-wrapper">
+                            <span class="qty-label">כמות</span>
+                            <input type="number" min="0" placeholder="0" class="qty-input" oninput="updateUI()">
+                        </div>
+                    </div>
 
-
-                        
+                    <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
+                         <strong>גודל סיר:</strong><br>
+                        <label style="margin-left: 10px;">
+                            <input type="radio" name="majadra_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                            קטן
+                        </label>
+                        <label style="margin-left: 10px;">
+                            <input type="radio" name="majadra_size" value="30" data-text="בינוני" onchange="calculateItemPrice(this)"> 
+                            בינוני (+30 ₪)
+                        </label>
+                        <label>
+                            <input type="radio" name="majadra_size" value="50" data-text="גדול" onchange="calculateItemPrice(this)"> 
+                            גדול (+50 ₪)
+                        </label>
                     </div>
                 </div>
             </div>
 
-            <div class="menu-item" data-name="סיר עלי גפן" data-price="150">
+            <div class="menu-item" data-name="סיר עלי גפן" data-base-price="150" data-price="150">
                 <img src="bg.jpg.1.png" alt="עלי גפן" class="item-image">
-                <div class="item-details">
-                    <div class="item-text">
-                        <h3>סיר עלי גפן</h3>
-                        <div class="price-tag">150 ₪</div>
+                
+                <div class="item-details" style="flex-direction: column; align-items: stretch;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div class="item-text">
+                            <h3>סיר עלי גפן</h3>
+                            <div class="price-tag">150 ₪</div>
+                        </div>
+                        <div class="qty-wrapper">
+                            <span class="qty-label">כמות</span>
+                            <input type="number" min="0" placeholder="0" class="qty-input" oninput="updateUI()">
+                        </div>
                     </div>
-                    <div class="qty-wrapper">
-                        <span class="qty-label">כמות</span>
-      <input type="number" min="0" value="" placeholder="0" class="qty-input">
 
-    <input type="radio" name="zuc_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
+                    <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
+                        <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+                            <strong>סוג:</strong><br>
+                            <label style="margin-left: 10px;">
+                                <input type="radio" name="gefen_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
                                 צמחוני
                             </label>
                             <label>
-                                <input type="radio" name="zuc_type" value="30" data-text="בשרי" onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="gefen_type" value="30" data-text="בשרי" onchange="calculateItemPrice(this)"> 
                                 בשרי (+30 ₪)
                             </label>
                         </div>
                         <div>
                             <strong>גודל סיר:</strong><br>
                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="gefen_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
                                 קטן
                             </label>
                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="20" data-text="בינוני" onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="gefen_size" value="50" data-text="בינוני" onchange="calculateItemPrice(this)"> 
                                 בינוני (+50 ₪)
                             </label>
                             <label>
-                                <input type="radio" name="zuc_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="gefen_size" value="100" data-text="גדול" onchange="calculateItemPrice(this)"> 
                                 גדול (+100 ₪)
                             </label>
                         </div>
-
-                        
                     </div>
                 </div>
             </div>
@@ -502,6 +536,13 @@
                     <span><i class="fas fa-shopping-bag"></i> איסוף עצמי</span>
                 </label>
             </div>
+            
+            <div id="pickupNote" style="text-align: center; margin-bottom: 15px; color: #666; font-size: 0.9rem;">
+                כתובת לאיסוף: ג׳וליס, רחוב ראשי <br>
+                <a href="#" onclick="openWaze()" style="color: var(--accent-green); font-weight: bold; text-decoration: none;">
+                    <i class="fab fa-waze"></i> לחץ כאן לניווט
+                </a>
+            </div>
 
             <div id="addressWrapper">
                 <div class="input-group">
@@ -513,6 +554,10 @@
     </div>
 
     <div class="sticky-footer" id="stickyFooter">
+        <a href="#" onclick="openWaze()" class="btn-waze-float">
+            <i class="fab fa-waze"></i>
+        </a>
+
         <div class="cart-info">
             <span style="font-size:0.8rem; opacity:0.8; display:block;">סה"כ לתשלום:</span>
             <span id="totalPrice" class="cart-total-amount">0 ₪</span>
@@ -527,6 +572,11 @@
     <script>
         const SHIPPING_COST = 50;
         const myNumber = "972507125200"; // המספר שלך
+        const wazeLocation = "https://waze.com/ul?q=Julis"; // קישור לוויז
+
+        function openWaze() {
+            window.location.href = wazeLocation;
+        }
 
         function updateUI() {
             let itemTotal = 0;
@@ -547,6 +597,7 @@
             // בדיקת סוג משלוח
             const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
             const addressWrapper = document.getElementById('addressWrapper');
+            const pickupNote = document.getElementById('pickupNote');
             const footer = document.getElementById('stickyFooter');
             const totalDisplay = document.getElementById('totalPrice');
 
@@ -554,9 +605,11 @@
 
             if (deliveryType === 'delivery') {
                 addressWrapper.classList.add('open');
+                pickupNote.style.display = 'none'; 
                 if (hasItems) finalTotal += SHIPPING_COST;
             } else {
                 addressWrapper.classList.remove('open');
+                pickupNote.style.display = 'block'; 
             }
 
             totalDisplay.innerText = finalTotal + " ₪";
@@ -568,28 +621,20 @@
             }
         }
 
-        // האזנה לשינויים בכל השדות
         document.querySelectorAll('.qty-input').forEach(input => input.addEventListener('input', updateUI));
         
-        // פונקציה חכמה לחישוב תוספות (עובדת גם לקישוא וגם לעוף)
+        // פונקציה חכמה לחישוב תוספות
         function calculateItemPrice(element) {
-            // 1. מציאת האלמנט הראשי של המנה
             const item = element.closest('.menu-item');
-            
-            // 2. שליפת מחיר הבסיס (אם אין base-price, משתמשים במחיר הרגיל)
             const basePrice = parseInt(item.dataset.basePrice) || parseInt(item.dataset.price);
             
             let totalAddons = 0;
             let descriptionParts = [];
 
-            // 3. מעבר על כל כפתורי הרדיו המסומנים בתוך המנה הזאת
             const checkedRadios = item.querySelectorAll('input[type="radio"]:checked');
             
             checkedRadios.forEach(radio => {
-                // הוספת הערך הכספי (אם יש)
                 totalAddons += parseInt(radio.value) || 0;
-                
-                // הוספת הטקסט לתיאור (כדי שיופיע בוואטסאפ)
                 if (radio.dataset.text) {
                     descriptionParts.push(radio.dataset.text);
                 }
@@ -597,11 +642,9 @@
 
             const finalPrice = basePrice + totalAddons;
             
-            // 4. עדכון התצוגה והנתונים
             item.querySelector('.price-tag').innerText = finalPrice + " ₪";
             item.dataset.price = finalPrice;
             
-            // יצירת השם המלא לוואטסאפ
             const originalName = item.querySelector('h3').innerText;
             if (descriptionParts.length > 0) {
                 item.dataset.name = `${originalName} (${descriptionParts.join(', ')})`;
@@ -609,17 +652,14 @@
                 item.dataset.name = originalName;
             }
 
-            // 5. עדכון הסל הכללי
             updateUI();
         }
 
         function sendToWhatsapp() {
-            // איסוף נתונים
             const customerName = document.getElementById('customerName').value.trim();
             const deliveryType = document.querySelector('input[name="deliveryType"]:checked').value;
             const address = document.getElementById('address').value.trim();
             
-            // בדיקות תקינות
             let itemsCount = 0;
             let orderDetails = "";
             let total = 0;
@@ -653,7 +693,6 @@
                 return;
             }
 
-            // בניית ההודעה
             let message = `*הזמנה חדשה - ${customerName}* \n\n`;
             message += orderDetails;
             message += `------------------\n`;
@@ -668,12 +707,9 @@
 
             message += `\n💰 *סה"כ: ${total} ₪*`;
 
-            // שליחה
             const url = `https://wa.me/${myNumber}?text=${encodeURIComponent(message)}`;
             window.location.href = url;
         }
     </script>
 </body>
 </html>
-
-
