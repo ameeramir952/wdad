@@ -209,6 +209,13 @@
             border-color: var(--accent-green);
             color: var(--accent-green);
         }
+        
+        /* סגנון לתיבות סימון (צ'קבוקס) כמו הכפתורים הרגילים */
+        .checkbox-label {
+            display: block; 
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
 
         .input-group {
             margin-bottom: 15px;
@@ -355,7 +362,7 @@
                         <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
                             <strong>סוג:</strong><br>
                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
+                                <input type="radio" name="zuc_type" value="0" data-text="צמחוני" onchange="calculateItemPrice(this)"> 
                                 צמחוני
                             </label>
                             <label>
@@ -365,8 +372,8 @@
                         </div>
                         <div>
                             <strong>גודל סיר:</strong><br>
-                             <label style="margin-left: 10px;">
-                                <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                            <label style="margin-left: 10px;">
+                                <input type="radio" name="zuc_size" value="0" data-text="קטן" onchange="calculateItemPrice(this)"> 
                                 קטן
                             </label>
                             <label style="margin-left: 10px;">
@@ -400,8 +407,8 @@
                     <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
                         <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
                             <strong>סוג:</strong><br>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="freekeh_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
+                             <label style="margin-left: 10px;">
+                                <input type="radio" name="freekeh_type" value="0" data-text="צמחוני" onchange="calculateItemPrice(this)"> 
                                 צמחוני
                             </label>
                             <label>
@@ -411,8 +418,8 @@
                         </div>
                         <div>
                             <strong>גודל סיר:</strong><br>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="freekeh_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                             <label style="margin-left: 10px;">
+                                <input type="radio" name="freekeh_size" value="0" data-text="קטן" onchange="calculateItemPrice(this)"> 
                                 קטן
                             </label>
                             <label style="margin-left: 10px;">
@@ -446,8 +453,8 @@
                     <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
                         <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
                             <strong>סוג:</strong><br>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="cabbage_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
+                             <label style="margin-left: 10px;">
+                                <input type="radio" name="cabbage_type" value="0" data-text="צמחוני" onchange="calculateItemPrice(this)"> 
                                 צמחוני
                             </label>
                             <label>
@@ -457,8 +464,8 @@
                         </div>
                         <div>
                             <strong>גודל סיר:</strong><br>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="cabbage_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                             <label style="margin-left: 10px;">
+                                <input type="radio" name="cabbage_size" value="0" data-text="קטן" onchange="calculateItemPrice(this)"> 
                                 קטן
                             </label>
                             <label style="margin-left: 10px;">
@@ -490,13 +497,15 @@
                     </div>
 
                     <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem; margin-top: 5px;">
-                        <strong>תוספת לבחירה:</strong><br>
-                        <label style="margin-left: 15px; cursor: pointer;">
-                            <input type="radio" name="chicken_side" value="0" data-text="עם סלט" checked onchange="calculateItemPrice(this)"> 
+                        <strong>תוספות (אפשר לסמן כמה):</strong><br>
+                        
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="chicken_side_salad" value="0" data-text="סלט" onchange="calculateItemPrice(this)"> 
                             סלט (ללא תוספת)
                         </label>
-                        <label style="cursor: pointer;">
-                            <input type="radio" name="chicken_side" value="60" data-text="עם מרק" onchange="calculateItemPrice(this)"> 
+                        
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="chicken_side_soup" value="60" data-text="מרק" onchange="calculateItemPrice(this)"> 
                             מרק (+60 ₪)
                         </label>
                     </div>
@@ -520,8 +529,8 @@
 
                     <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
                          <strong>גודל סיר:</strong><br>
-                        <label style="margin-left: 10px;">
-                            <input type="radio" name="makluba_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                          <label style="margin-left: 10px;">
+                            <input type="radio" name="makluba_size" value="0" data-text="קטן" onchange="calculateItemPrice(this)"> 
                             קטן
                         </label>
                         <label style="margin-left: 10px;">
@@ -553,8 +562,8 @@
 
                     <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
                          <strong>גודל סיר:</strong><br>
-                        <label style="margin-left: 10px;">
-                            <input type="radio" name="majadra_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                          <label style="margin-left: 10px;">
+                            <input type="radio" name="majadra_size" value="0" data-text="קטן" onchange="calculateItemPrice(this)"> 
                             קטן
                         </label>
                         <label style="margin-left: 10px;">
@@ -587,8 +596,8 @@
                     <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
                         <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
                             <strong>סוג:</strong><br>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="gefen_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
+                             <label style="margin-left: 10px;">
+                                <input type="radio" name="gefen_type" value="0" data-text="צמחוני" onchange="calculateItemPrice(this)"> 
                                 צמחוני
                             </label>
                             <label>
@@ -598,8 +607,8 @@
                         </div>
                         <div>
                             <strong>גודל סיר:</strong><br>
-                            <label style="margin-left: 10px;">
-                                <input type="radio" name="gefen_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                             <label style="margin-left: 10px;">
+                                <input type="radio" name="gefen_size" value="0" data-text="קטן" onchange="calculateItemPrice(this)"> 
                                 קטן
                             </label>
                             <label style="margin-left: 10px;">
@@ -724,7 +733,7 @@
 
         document.querySelectorAll('.qty-input').forEach(input => input.addEventListener('input', updateUI));
         
-        // פונקציה חכמה לחישוב תוספות
+        // פונקציה חכמה לחישוב תוספות - עובדת גם עם RADIO וגם עם CHECKBOX
         function calculateItemPrice(element) {
             const item = element.closest('.menu-item');
             const basePrice = parseInt(item.dataset.basePrice) || parseInt(item.dataset.price);
@@ -732,12 +741,16 @@
             let totalAddons = 0;
             let descriptionParts = [];
 
-            const checkedRadios = item.querySelectorAll('input[type="radio"]:checked');
+            // בוחר את כל האלמנטים המסומנים (גם רדיו וגם צ'קבוקס)
+            const checkedInputs = item.querySelectorAll('input:checked');
             
-            checkedRadios.forEach(radio => {
-                totalAddons += parseInt(radio.value) || 0;
-                if (radio.dataset.text) {
-                    descriptionParts.push(radio.dataset.text);
+            checkedInputs.forEach(input => {
+                // רק אם זה כפתור בחירה (ולא שדה הכמות עצמו בטעות)
+                if(input.type === 'radio' || input.type === 'checkbox') {
+                    totalAddons += parseInt(input.value) || 0;
+                    if (input.dataset.text) {
+                        descriptionParts.push(input.dataset.text);
+                    }
                 }
             });
 
