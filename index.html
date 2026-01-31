@@ -446,6 +446,55 @@
             </div>
 
 
+          <div class="menu-item" data-name="פריקה" data-base-price="120" data-price="120">
+                <img src="כרוב ממולא.jpg" alt="כרוב ממולא" class="item-image">
+                
+                <div class="item-details" style="flex-direction: column; align-items: stretch;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <div class="item-text">
+                            <h3>כרוב ממולא</h3>
+                            <div class="price-tag">120 ₪</div>
+                        </div>
+                        <div class="qty-wrapper">
+                            <span class="qty-label">כמות</span>
+                            <input type="number" min="0" placeholder="0" class="qty-input" oninput="updateUI()">
+                        </div>
+                    </div>
+
+                    <div style="background: #f9f9f9; padding: 10px; border-radius: 10px; font-size: 0.9rem;">
+                        <div style="margin-bottom: 10px; border-bottom: 1px solid #ddd; padding-bottom: 5px;">
+                            <strong>סוג:</strong><br>
+                            <label style="margin-left: 10px;">
+                                <input type="radio" name="zuc_type" value="0" data-text="צמחוני" checked onchange="calculateItemPrice(this)"> 
+                                צמחוני
+                            </label>
+                            <label>
+                                <input type="radio" name="zuc_type" value="30" data-text="בשרי" onchange="calculateItemPrice(this)"> 
+                                בשרי (בשר טחון) (+50 ₪)
+                            </label>
+                        </div>
+                        <div>
+                            <strong>גודל סיר:</strong><br>
+                            <label style="margin-left: 10px;">
+                                <input type="radio" name="zuc_size" value="0" data-text="קטן" checked onchange="calculateItemPrice(this)"> 
+                                קטן
+                            </label>
+                            <label style="margin-left: 10px;">
+                                <input type="radio" name="zuc_size" value="40" data-text="בינוני" onchange="calculateItemPrice(this)"> 
+                                בינוני (+40₪)
+                            </label>
+                            <label>
+                                <input type="radio" name="zuc_size" value="60" data-text="גדול" onchange="calculateItemPrice(this)"> 
+                                גדול (+60 ₪)
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+          
 
           
 
@@ -787,6 +836,7 @@
     </script>
 </body>
 </html>
+
 
 
 
