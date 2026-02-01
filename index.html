@@ -12,7 +12,8 @@
             --primary: #2d3436;
             --accent: #27ae60; 
             --error: #e74c3c;
-            --card-bg: rgba(255, 255, 255, 0.95);
+            /* שינוי 1: הורדת האטימות מ-0.95 ל-0.85 כדי שיהיה יותר שקוף */
+            --card-bg: rgba(255, 255, 255, 0.85);
             --radius: 12px;
         }
 
@@ -36,13 +37,15 @@
         /* Hero */
         .hero {
             text-align: center;
-            background: rgba(255, 255, 255, 0.9);
+            /* עדכון גם כאן שיהיה תואם לכרטיסים */
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             padding: 20px;
             border-radius: var(--radius);
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             margin-bottom: 20px;
-            border: 1px solid rgba(255,255,255,0.5);
+            /* מסגרת עדינה לבנה לחיזוק אפקט הזכוכית */
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .hero h1 { margin: 0; font-size: 2.5rem; color: #2c3e50; }
@@ -71,16 +74,18 @@
 
         .card {
             background: var(--card-bg);
+            /* שינוי 2: הוספת טשטוש לרקע מאחורי הכרטיס */
+            backdrop-filter: blur(8px);
+            /* מסגרת לבנה עדינה חצי שקופה לאפקט זכוכית */
+            border: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* צל עדין יותר */
             display: flex;
             flex-direction: column;
-            border: 1px solid rgba(0,0,0,0.05);
             transition: 0.3s;
         }
         
-        /* סימון כרטיס שיש בו שגיאה */
         .card.error-border {
             border: 2px solid var(--error);
             box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
@@ -90,6 +95,8 @@
             width: 100%;
             height: 140px;
             object-fit: cover;
+            /* הוספתי שקיפות קלה לתמונה עצמה שתשתלב עם הרקע, אפשר להוריד אם לא אוהבים */
+            opacity: 0.95;
         }
 
         .card-content {
@@ -123,7 +130,8 @@
         /* Options */
         .options-group {
             margin-bottom: 8px;
-            background: rgba(0,0,0,0.03);
+            /* רקע האופציות גם קצת יותר שקוף */
+            background: rgba(255, 255, 255, 0.3);
             padding: 8px;
             border-radius: 6px;
         }
@@ -132,7 +140,7 @@
             font-size: 0.8rem;
             font-weight: bold;
             display: block;
-            color: #666;
+            color: #444; /* הכהיתי מעט את הטקסט לקריאות */
             margin-bottom: 5px;
         }
 
@@ -142,6 +150,7 @@
             margin-bottom: 4px;
             cursor: pointer;
             font-size: 0.9rem;
+            font-weight: 500; /* מעט יותר מודגש לקריאות */
         }
 
         .radio-option input {
@@ -159,7 +168,7 @@
             gap: 12px;
             margin-top: auto;
             padding-top: 12px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid rgba(0,0,0,0.08);
         }
 
         .qty-btn {
@@ -167,7 +176,7 @@
             height: 30px;
             border-radius: 50%;
             border: none;
-            background: #f0f0f0;
+            background: rgba(255,255,255,0.8); /* כפתורים חצי שקופים */
             color: #333;
             font-size: 1rem;
             cursor: pointer;
@@ -175,6 +184,7 @@
             align-items: center;
             justify-content: center;
             transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
 
         .qty-btn.add { background: var(--accent); color: white; }
@@ -189,29 +199,37 @@
 
         /* Form */
         .order-form {
-            background: rgba(255, 255, 255, 0.95);
+            background: var(--card-bg); /* שימוש באותו משתנה שקיפות */
             padding: 20px;
             border-radius: var(--radius);
             margin-top: 30px;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
         }
 
         .form-input {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
+            border: 1px solid rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.6); /* שדות קלט חצי שקופים */
             border-radius: 8px;
             box-sizing: border-box;
             font-family: inherit;
             font-size: 1rem;
+        }
+        
+        .form-input:focus {
+             background: rgba(255,255,255,0.9);
+             outline: none;
+             border-color: var(--accent);
         }
 
         .delivery-toggle { display: flex; gap: 10px; margin-bottom: 15px; }
         
         .toggle-option {
             flex: 1; text-align: center; padding: 12px;
-            border: 1px solid #ddd; border-radius: 8px;
-            cursor: pointer; background: #fff; font-size: 0.95rem;
+            border: 1px solid rgba(0,0,0,0.1); border-radius: 8px;
+            cursor: pointer; background: rgba(255,255,255,0.6); font-size: 0.95rem;
         }
         
         .toggle-option.selected {
@@ -255,7 +273,7 @@
 <div class="container">
     <div class="hero">
         <h1>המטבח של ודאד</h1>
-        <p>🌿 אוכל גלילי אותנטי  🌿</p>
+        <p>🌿 אוכל גלילי אותנטי | עבודת יד 🌿</p>
         <a href="https://waze.com/ul?q=Julis" target="_blank" class="waze-btn">
             <i class="fab fa-waze"></i> נווט
         </a>
@@ -304,7 +322,7 @@
 
 <script>
     // --- Data Configuration ---
-    // הורדתי את כל ה-checked: true כדי שכלום לא יהיה מסומן בהתחלה
+    // ללא סימון ברירת מחדל (checked: true הוסר)
     const menuItems = [
         {
             id: 'zucchini',
@@ -423,12 +441,11 @@
         const container = document.getElementById('menu-container');
         
         menuItems.forEach(item => {
-            // אתחול סל ריק ללא בחירות
             cart[item.id] = { qty: 0, addonsPrice: 0, selections: {} };
             
             const card = document.createElement('div');
             card.className = 'card';
-            card.id = `card-${item.id}`; // מזהה לכרטיס כדי שנוכל לסמן אותו באדום אם יש שגיאה
+            card.id = `card-${item.id}`;
             card.innerHTML = `
                 <img src="${item.image}" alt="${item.name}" class="card-img" onerror="this.src='https://via.placeholder.com/300x150?text=תמונה'">
                 <div class="card-content">
@@ -473,7 +490,6 @@
     window.updateItemConfig = function(itemId, groupName, input) {
         const item = menuItems.find(i => i.id === itemId);
         
-        // הסרת סימון שגיאה אם קיים
         document.getElementById(`card-${itemId}`).classList.remove('error-border');
 
         cart[itemId].selections[groupName] = input.getAttribute('data-label');
@@ -493,7 +509,6 @@
         const currentQty = cart[itemId].qty;
         const newQty = Math.max(0, currentQty + change);
         
-        // אם מוסיפים כמות, נוריד את סימון השגיאה (אם היה)
         if(newQty > 0) {
             document.getElementById(`card-${itemId}`).classList.remove('error-border');
         }
@@ -547,31 +562,25 @@
         const name = document.getElementById('customerName').value.trim();
         const address = document.getElementById('address').value.trim();
         
-        // בדיקת שם
         if (!name) {
             document.getElementById('customerName').focus();
             return alert('נא למלא שם מלא');
         }
         
-        // בדיקת כתובת אם זה משלוח
         if (deliveryMethod === 'delivery' && !address) {
             document.getElementById('address').focus();
             return alert('נא למלא כתובת למשלוח');
         }
 
-        // --- בדיקת ולידציה חשובה ---
-        // האם המשתמש בחר כמות אבל שכח לסמן אופציות?
         let validationError = false;
         
         menuItems.forEach(item => {
             const data = cart[item.id];
             if (data.qty > 0) {
-                // בדיקה האם מספר הבחירות שבוצעו תואם למספר הקבוצות הקיימות
                 const requiredOptions = item.options ? item.options.length : 0;
                 const selectedOptions = Object.keys(data.selections).length;
                 
                 if (selectedOptions < requiredOptions) {
-                    // סימון הכרטיס באדום
                     document.getElementById(`card-${item.id}`).classList.add('error-border');
                     validationError = true;
                 }
@@ -582,7 +591,6 @@
             return alert('שים לב: יש מנות שבחרת להן כמות אך לא סימנת את כל האפשרויות (סוג/גודל).\nאנא השלם את הבחירה במנות המסומנות באדום.');
         }
 
-        // יצירת ההודעה
         let message = `*הזמנה חדשה: ${name}*\n\n`;
         let total = 0;
 
@@ -597,7 +605,6 @@
                 
                 message += `▪️ ${item.name} (${data.qty})\n`;
                 if(selectionText) message += `   [${selectionText}]\n`;
-                // message += `   ${subtotal} ₪\n`; 
             }
         });
 
