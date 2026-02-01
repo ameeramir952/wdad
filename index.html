@@ -558,12 +558,10 @@
         else footer.classList.remove('visible');
     }
 
-  window.sendOrder = function() {
-        // 1. איסוף נתונים בסיסי
+ window.sendOrder = function() {
         const name = document.getElementById('customerName').value.trim();
         const address = document.getElementById('address').value.trim();
         
-        // 2. ולידציה (נשאר זהה למה שכתבת, זה תקין)
         if (!name) {
             document.getElementById('customerName').focus();
             return alert('נא למלא שם מלא');
@@ -574,6 +572,7 @@
             return alert('נא למלא כתובת למשלוח');
         }
 
+        // --- בדיקת תקינות (ולידציה) ---
         let validationError = false;
         menuItems.forEach(item => {
             const data = cart[item.id];
@@ -592,10 +591,18 @@
             return alert('נא להשלים את הבחירות בפריטים המסומנים באדום.');
         }
 
-        // 3. בניית ההודעה - פורמט משופר לקריאות
-        let message = `👋 *הזמנה חדשה מאתר המטבח של ודאד*\n`;
-        message += `------------------------------\n`;
-        message += `👤 *שם:* ${name}\n`;
+        // --- בניית ההודעה החדשה והנקייה ---
+        
+        // כותרת
+        let message = `*הזמנה חדשה* | ודאד\n`;
+        message += `----------------\n`;
+        message += `👤 ${name}\n`;
+        if (deliveryMethod === 'delivery') {
+            message += `📍 ${address}\n`;
+        } else {
+            message += `🛍️ איסוף עצמי\n`;
+        }
+        message += `----------------\n`; // הפרדה בין פרטים למנות
         
         let total = 0;
         let cartHasItems = false;
@@ -608,39 +615,38 @@
                 const subtotal = itemPrice * data.qty;
                 total += subtotal;
                 
-                // המרת הבחירות לרשימה נקייה
-                // שימוש ב-join עם פסיק ורווח בלבד מונע בלגן
-                const selectionValues = Object.values(data.selections);
-                const selectionText = selectionValues.length > 0 ? `(${selectionValues.join(', ')})` : '';
+                // ניקוי הטקסט: הופך "גדול (+60)" ל-"גדול" בלבד
+                const cleanSelections = Object.values(data.selections).map(val => {
+                    return val.split(' (')[0]; // לוקח רק את הטקסט לפני הסוגריים של המחיר
+                });
                 
-                // מבנה שורה: כמות X שם הפריט
-                // השימוש ב-x קטנה צמודה למספר עוזר ליישור
-                message += `\n🛒 *${data.qty}x ${item.name}*\n`; 
+                const selectionText = cleanSelections.join(', ');
+
+                // שורה ראשונה: כמות ושם המנה (מודגש)
+                message += `*${data.qty}x ${item.name}*\n`;
+                
+                // שורה שנייה (רק אם יש אופציות): פירוט נקי עם הזחה קלה
                 if(selectionText) {
-                    message += `   🔸 ${selectionText}\n`;
+                    message += `   ▫️ ${selectionText}\n`;
                 }
-                message += `   💵 ${subtotal} ₪\n`;
+                
+                // הערה: הסרתי את מחיר המנה הבודדת כדי למנוע עומס. 
+                // אם חשוב לך לראות מחיר לכל שורה, אפשר להחזיר.
             }
         });
 
-        if (!cartHasItems) {
-            return alert('העגלה ריקה, לא ניתן לשלוח הזמנה.');
-        }
+        if (!cartHasItems) return alert('העגלה ריקה');
 
-        message += `\n------------------------------\n`;
+        message += `----------------\n`;
         
         if (deliveryMethod === 'delivery') {
             total += SHIPPING_COST;
-            message += `🛵 *משלוח עד הבית* (+${SHIPPING_COST}₪)\n`;
-            message += `📍 ${address}\n`;
-        } else {
-            message += `🛍️ *איסוף עצמי* (ג׳וליס)\n`;
+            message += `🛵 משלוח: ${SHIPPING_COST} ₪\n`;
         }
         
-        message += `\n💰 *סה"כ לתשלום: ${total} ₪*`;
+        // שורת סיכום גדולה וברורה
+        message += `💵 *סה"כ לתשלום: ${total} ₪*`;
 
-        // 4. שליחה
-        // שימוש ב-encodeURIComponent הוא חובה, אחרת ירידות שורה לא יעבדו
         const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
     };
@@ -650,4 +656,5 @@
 
 </body>
 </html>
+
 
