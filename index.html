@@ -558,10 +558,12 @@
         else footer.classList.remove('visible');
     }
 
-    window.sendOrder = function() {
+  window.sendOrder = function() {
+        // 1. איסוף נתונים בסיסי
         const name = document.getElementById('customerName').value.trim();
         const address = document.getElementById('address').value.trim();
         
+        // 2. ולידציה (נשאר זהה למה שכתבת, זה תקין)
         if (!name) {
             document.getElementById('customerName').focus();
             return alert('נא למלא שם מלא');
@@ -573,7 +575,6 @@
         }
 
         let validationError = false;
-        
         menuItems.forEach(item => {
             const data = cart[item.id];
             if (data.qty > 0) {
@@ -588,36 +589,58 @@
         });
 
         if (validationError) {
-            return alert('שים לב: יש מנות שבחרת להן כמות אך לא סימנת את כל האפשרויות (סוג/גודל).\nאנא השלם את הבחירה במנות המסומנות באדום.');
+            return alert('נא להשלים את הבחירות בפריטים המסומנים באדום.');
         }
 
-        let message = `*הזמנה חדשה: ${name}*\n\n`;
+        // 3. בניית ההודעה - פורמט משופר לקריאות
+        let message = `👋 *הזמנה חדשה מאתר המטבח של ודאד*\n`;
+        message += `------------------------------\n`;
+        message += `👤 *שם:* ${name}\n`;
+        
         let total = 0;
+        let cartHasItems = false;
 
         menuItems.forEach(item => {
             const data = cart[item.id];
             if (data.qty > 0) {
+                cartHasItems = true;
                 const itemPrice = item.basePrice + data.addonsPrice;
                 const subtotal = itemPrice * data.qty;
                 total += subtotal;
                 
-                const selectionText = Object.values(data.selections).join(', ');
+                // המרת הבחירות לרשימה נקייה
+                // שימוש ב-join עם פסיק ורווח בלבד מונע בלגן
+                const selectionValues = Object.values(data.selections);
+                const selectionText = selectionValues.length > 0 ? `(${selectionValues.join(', ')})` : '';
                 
-                message += `▪️ ${item.name} (${data.qty})\n`;
-                if(selectionText) message += `   [${selectionText}]\n`;
+                // מבנה שורה: כמות X שם הפריט
+                // השימוש ב-x קטנה צמודה למספר עוזר ליישור
+                message += `\n🛒 *${data.qty}x ${item.name}*\n`; 
+                if(selectionText) {
+                    message += `   🔸 ${selectionText}\n`;
+                }
+                message += `   💵 ${subtotal} ₪\n`;
             }
         });
 
-        message += `--------------------\n`;
+        if (!cartHasItems) {
+            return alert('העגלה ריקה, לא ניתן לשלוח הזמנה.');
+        }
+
+        message += `\n------------------------------\n`;
+        
         if (deliveryMethod === 'delivery') {
             total += SHIPPING_COST;
-            message += `🛵 משלוח: ${address}\n`;
+            message += `🛵 *משלוח עד הבית* (+${SHIPPING_COST}₪)\n`;
+            message += `📍 ${address}\n`;
         } else {
-            message += `🛍️ איסוף עצמי\n`;
+            message += `🛍️ *איסוף עצמי* (ג׳וליס)\n`;
         }
         
-        message += `💰 *סה"כ: ${total} ₪*`;
+        message += `\n💰 *סה"כ לתשלום: ${total} ₪*`;
 
+        // 4. שליחה
+        // שימוש ב-encodeURIComponent הוא חובה, אחרת ירידות שורה לא יעבדו
         const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
         window.open(url, '_blank');
     };
@@ -627,3 +650,4 @@
 
 </body>
 </html>
+
