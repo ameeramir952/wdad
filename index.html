@@ -3,76 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>המטבח של ודאד</title>
+    <title>המטבח של ודאד - אוכל גלילי אותנטי</title>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-
-
-        /* Notice Card Design */
-        .notice-card {
-            background: rgba(255, 252, 235, 0.95); /* רקע שמנת/צהבהב עדין */
-            border-right: 6px solid #f1c40f; /* פס הדגשה בצד ימין */
-            border-radius: var(--radius);
-            padding: 15px 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            backdrop-filter: blur(5px);
-            font-size: 0.95rem;
-            color: #2c3e50;
-        }
-
-        .notice-card h3 {
-            margin: 0 0 10px 0;
-            color: #d35400; /* צבע כותרת כתום כהה */
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .notice-card ul {
-            margin: 0;
-            padding-right: 20px; /* הזחה לרשימה מימין */
-            list-style-type: none; /* ביטול הנקודות הרגילות */
-        }
-
-        .notice-card li {
-            position: relative;
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
-        /* יצירת נקודות מעוצבות לרשימה */
-        .notice-card li::before {
-            content: "•";
-            color: #f1c40f;
-            font-weight: bold;
-            font-size: 1.2em;
-            position: absolute;
-            right: -15px;
-        }
-
-        .notice-card strong {
-            font-weight: 700;
-        }
-
-        .phone-link {
-            color: #2c3e50;
-            text-decoration: none;
-            font-weight: bold;
-            border-bottom: 1px dotted #2c3e50;
-        }
-
-        
         :root {
             --primary: #2d3436;
             --accent: #27ae60; 
+            --gold: #d4ac0d; /* גוון זהב עדין להודעות */
             --error: #e74c3c;
-            /* שינוי 1: הורדת האטימות מ-0.95 ל-0.85 כדי שיהיה יותר שקוף */
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --radius: 12px;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --radius: 16px;
         }
 
         body {
@@ -81,84 +23,127 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+            background-color: #f5f6fa; /* צבע גיבוי אם התמונה לא נטענת */
             margin: 0;
-            padding-bottom: 100px;
+            padding-bottom: 120px;
             color: var(--primary);
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 15px;
+            padding: 20px 15px;
         }
 
-        /* Hero */
+        /* --- Hero Section --- */
         .hero {
             text-align: center;
-            /* עדכון גם כאן שיהיה תואם לכרטיסים */
             background: var(--card-bg);
-            backdrop-filter: blur(10px);
-            padding: 20px;
+            backdrop-filter: blur(12px);
+            padding: 25px;
             border-radius: var(--radius);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-            /* מסגרת עדינה לבנה לחיזוק אפקט הזכוכית */
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            border: 1px solid rgba(255,255,255,0.6);
         }
 
-        .hero h1 { margin: 0; font-size: 2.5rem; color: #2c3e50; }
-        .hero p { margin: 5px 0 10px; color: #555; font-size: 1rem; }
+        .hero h1 { margin: 0 0 5px; font-size: 2.2rem; color: #2c3e50; }
+        .hero p { margin: 0 0 15px; color: #7f8c8d; font-size: 1.1rem; }
 
         .waze-btn {
             display: inline-flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             background: #fff;
             border: 1px solid #33ccff;
             color: #33ccff;
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 8px 20px;
+            border-radius: 50px;
             text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: bold;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .waze-btn:hover { background: #e6f9ff; }
+
+        /* --- Info Card (ההערה המעוצבת) --- */
+        .info-card {
+            background: linear-gradient(135deg, #fffdf5 0%, #fff 100%);
+            border-right: 5px solid var(--gold);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(212, 172, 13, 0.1);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Grid */
+        .info-card h3 {
+            margin: 0 0 10px 0;
+            color: #b7950b;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .info-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .info-line i { color: var(--gold); margin-top: 4px; }
+        
+        .highlight-phone {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 1px dotted #999;
+        }
+
+        /* --- Menu Grid --- */
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); 
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 20px;
         }
 
         .card {
             background: var(--card-bg);
-            /* שינוי 2: הוספת טשטוש לרקע מאחורי הכרטיס */
-            backdrop-filter: blur(8px);
-            /* מסגרת לבנה עדינה חצי שקופה לאפקט זכוכית */
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); /* צל עדין יותר */
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
-            transition: 0.3s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+
+        .card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
         
         .card.error-border {
             border: 2px solid var(--error);
-            box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 0 12px rgba(231, 76, 60, 0.2);
         }
 
         .card-img {
             width: 100%;
-            height: 140px;
+            height: 180px;
             object-fit: cover;
-            /* הוספתי שקיפות קלה לתמונה עצמה שתשתלב עם הרקע, אפשר להוריד אם לא אוהבים */
-            opacity: 0.95;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
         .card-content {
-            padding: 12px;
+            padding: 15px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -167,161 +152,157 @@
         .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: start;
-            margin-bottom: 10px;
+            align-items: flex-start;
+            margin-bottom: 12px;
         }
 
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin: 0;
-            line-height: 1.2;
-        }
-
-        .card-price {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--accent);
-            white-space: nowrap;
-        }
+        .card-title { font-size: 1.2rem; font-weight: 700; margin: 0; line-height: 1.2; }
+        .card-price { font-size: 1.1rem; font-weight: 700; color: var(--accent); white-space: nowrap; }
 
         /* Options */
+        .options-container { margin-bottom: 15px; }
+        
         .options-group {
-            margin-bottom: 8px;
-            /* רקע האופציות גם קצת יותר שקוף */
-            background: rgba(255, 255, 255, 0.3);
-            padding: 8px;
-            border-radius: 6px;
+            margin-bottom: 10px;
+            background: rgba(240, 242, 245, 0.5);
+            padding: 10px;
+            border-radius: 8px;
         }
 
         .options-title {
-            font-size: 0.8rem;
-            font-weight: bold;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #636e72;
+            margin-bottom: 6px;
             display: block;
-            color: #444; /* הכהיתי מעט את הטקסט לקריאות */
-            margin-bottom: 5px;
         }
 
         .radio-option {
             display: flex;
             align-items: center;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500; /* מעט יותר מודגש לקריאות */
+            font-size: 0.95rem;
         }
+        
+        .radio-option:last-child { margin-bottom: 0; }
+        .radio-option input { margin-left: 8px; accent-color: var(--accent); transform: scale(1.1); }
 
-        .radio-option input {
-            margin-left: 8px;
-            accent-color: var(--accent);
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Qty Control */
+        /* Quantity */
         .qty-control {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 15px;
             margin-top: auto;
-            padding-top: 12px;
-            border-top: 1px solid rgba(0,0,0,0.08);
+            padding-top: 15px;
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
         .qty-btn {
-            width: 30px;
-            height: 30px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: none;
-            background: rgba(255,255,255,0.8); /* כפתורים חצי שקופים */
-            color: #333;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            color: #2d3436;
             font-size: 1rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             transition: 0.2s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center;
         }
 
         .qty-btn.add { background: var(--accent); color: white; }
         .qty-btn:active { transform: scale(0.9); }
         
-        .qty-display {
-            font-size: 1.2rem;
-            font-weight: bold;
-            width: 25px;
-            text-align: center;
-        }
+        .qty-display { font-size: 1.2rem; font-weight: bold; width: 30px; text-align: center; }
 
-        /* Form */
+        /* --- Order Form --- */
         .order-form {
-            background: var(--card-bg); /* שימוש באותו משתנה שקיפות */
-            padding: 20px;
+            background: var(--card-bg);
+            padding: 25px;
             border-radius: var(--radius);
             margin-top: 30px;
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255,255,255,0.6);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
         }
 
+        .form-title { margin-top: 0; font-size: 1.4rem; color: #2c3e50; border-bottom: 2px solid #f1f2f6; padding-bottom: 10px; margin-bottom: 20px; }
+
+        .form-group { margin-bottom: 18px; }
+        .form-label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
+        
         .form-input {
             width: 100%;
-            padding: 12px;
-            border: 1px solid rgba(0,0,0,0.1);
-            background: rgba(255,255,255,0.6); /* שדות קלט חצי שקופים */
-            border-radius: 8px;
+            padding: 14px;
+            border: 1px solid #dfe6e9;
+            background: rgba(255,255,255,0.8);
+            border-radius: 10px;
             box-sizing: border-box;
             font-family: inherit;
             font-size: 1rem;
+            transition: 0.3s;
         }
         
-        .form-input:focus {
-             background: rgba(255,255,255,0.9);
-             outline: none;
-             border-color: var(--accent);
-        }
+        .form-input:focus { background: #fff; outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(39, 174, 96, 0.1); }
 
-        .delivery-toggle { display: flex; gap: 10px; margin-bottom: 15px; }
+        .delivery-toggle { display: flex; gap: 12px; margin-bottom: 20px; }
         
         .toggle-option {
-            flex: 1; text-align: center; padding: 12px;
-            border: 1px solid rgba(0,0,0,0.1); border-radius: 8px;
-            cursor: pointer; background: rgba(255,255,255,0.6); font-size: 0.95rem;
+            flex: 1; text-align: center; padding: 15px;
+            border: 1px solid #dfe6e9; border-radius: 10px;
+            cursor: pointer; background: rgba(255,255,255,0.6);
+            font-weight: 500; transition: 0.3s;
         }
         
         .toggle-option.selected {
             background: #e8f5e9; border-color: var(--accent);
             color: var(--accent); font-weight: bold;
+            box-shadow: 0 4px 10px rgba(39, 174, 96, 0.15);
         }
 
+        #pickupInfo {
+            background: #f8f9fa; padding: 12px; border-radius: 8px;
+            color: #636e72; font-size: 0.9rem; text-align: center;
+        }
+
+        /* --- Sticky Footer --- */
         .sticky-footer {
             position: fixed;
-            bottom: 15px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(150%);
             width: 90%;
             max-width: 500px;
-            background: #2c3e50;
+            background: #2d3436;
             color: white;
-            padding: 12px 25px;
+            padding: 10px 20px;
             border-radius: 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease-out;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 1000;
         }
         
         .sticky-footer.visible { transform: translateX(-50%) translateY(0); }
         
+        .total-section { display: flex; flex-direction: column; }
+        .total-label { font-size: 0.75rem; opacity: 0.8; text-transform: uppercase; letter-spacing: 1px; }
+        .total-amount { font-size: 1.4rem; font-weight: 700; color: var(--accent); }
+
         .whatsapp-btn {
             background: #25D366; color: white; border: none;
-            padding: 10px 24px; border-radius: 30px;
+            padding: 10px 25px; border-radius: 30px;
             font-weight: bold; font-size: 1rem; cursor: pointer;
             display: flex; align-items: center; gap: 8px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            transition: 0.3s;
         }
+        .whatsapp-btn:hover { background: #1ebc57; transform: translateY(-2px); }
 
         .hidden { display: none; }
     </style>
@@ -330,42 +311,44 @@
 
 <div class="container">
     <div class="hero">
-
-        <div class="notice-card">
-        <h3><i class="fas fa-clock"></i> זמני הזמנות וחלוקה</h3>
-        <ul>
-            <li>
-                <strong>סגירת הזמנות:</strong> ניתן להזמין עד יום רביעי בשעה 12:00 בצהריים.
-            </li>
-            <li>
-                <strong>קונספט:</strong> האוכל מוכן טרי ומוגש בימי שישי בלבד (לכבוד שבת).
-            </li>
-            <li>
-                <strong>שעות חלוקה ומשלוחים:</strong> ימי שישי בין השעות 12:00 - 16:00.
-            </li>
-            <li>
-                <strong>לבירורים נוספים:</strong> <a href="tel:0507125200" class="phone-link">050-7125200</a>
-            </li>
-        </ul>
-    </div>
-
-        
         <h1>המטבח של ודאד</h1>
         <p>🌿 אוכל גלילי אותנטי | עבודת יד 🌿</p>
         <a href="https://waze.com/ul?q=Julis" target="_blank" class="waze-btn">
-            <i class="fab fa-waze"></i> נווט
+            <i class="fab fa-waze"></i> נווט למטבח
         </a>
+    </div>
+
+    <div class="info-card">
+        <h3><i class="fas fa-utensils"></i> טוב לדעת</h3>
+        <div class="info-lines">
+            <div class="info-line">
+                <i class="far fa-clock"></i>
+                <span><strong>הזמנות:</strong> מתקבלות במהלך השבוע ונסגרות ביום רביעי בשעה 12:00.</span>
+            </div>
+            <div class="info-line">
+                <i class="far fa-calendar-check"></i>
+                <span><strong>הקונספט שלנו:</strong> האוכל מבושל טרי-טרי ומוגש בימי שישי בלבד.</span>
+            </div>
+            <div class="info-line">
+                <i class="fas fa-motorcycle"></i>
+                <span><strong>חלוקה ומשלוחים:</strong> ימי שישי בין השעות 12:00 - 16:00.</span>
+            </div>
+            <div class="info-line">
+                <i class="fas fa-phone"></i>
+                <span>לפרטים נוספים: <a href="tel:0507125200" class="highlight-phone">050-7125200</a></span>
+            </div>
+        </div>
     </div>
 
     <div id="menu-container" class="menu-grid">
         </div>
 
     <div class="order-form">
-        <h3 style="margin-top:0">פרטים לסיום</h3>
+        <h3 class="form-title">סיום הזמנה</h3>
         
-        <div style="margin-bottom:15px">
-            <label style="display:block; margin-bottom:5px; font-weight:bold">שם מלא:</label>
-            <input type="text" id="customerName" class="form-input" placeholder="השם שלך">
+        <div class="form-group">
+            <label class="form-label">שם מלא</label>
+            <input type="text" id="customerName" class="form-input" placeholder="למי ההזמנה?">
         </div>
 
         <div class="delivery-toggle">
@@ -377,30 +360,29 @@
             </div>
         </div>
 
-        <div id="addressField" class="hidden" style="margin-bottom:15px">
-            <label style="display:block; margin-bottom:5px;">כתובת:</label>
-            <textarea id="address" class="form-input" rows="2" placeholder="עיר, רחוב, מספר..."></textarea>
+        <div id="addressField" class="hidden form-group">
+            <label class="form-label">כתובת למשלוח</label>
+            <input type="text" id="address" class="form-input" placeholder="יישוב, רחוב ומספר בית...">
         </div>
         
         <div id="pickupInfo">
-            <small style="color: #555;">📍 כתובת לאיסוף: ג׳וליס, אלמע'ארה 8</small>
+            📍 <strong>נקודת איסוף:</strong> ג׳וליס, אלמע'ארה 8 (כניסה ראשית)
         </div>
     </div>
 </div>
 
 <div id="stickyFooter" class="sticky-footer">
-    <div>
-        <span style="font-size: 0.8rem; opacity: 0.8;">סה"כ:</span>
-        <span style="font-size: 1.3rem; font-weight: bold;"><span id="totalPrice">0</span> ₪</span>
+    <div class="total-section">
+        <span class="total-label">סה"כ לתשלום</span>
+        <span class="total-amount"><span id="totalPrice">0</span> ₪</span>
     </div>
     <button class="whatsapp-btn" onclick="sendOrder()">
-        שלח <i class="fab fa-whatsapp"></i>
+        שלח הזמנה <i class="fab fa-whatsapp"></i>
     </button>
 </div>
 
 <script>
     // --- Data Configuration ---
-    // ללא סימון ברירת מחדל (checked: true הוסר)
     const menuItems = [
         {
             id: 'zucchini',
@@ -408,11 +390,11 @@
             basePrice: 120,
             image: 'קישואים.jpg',
             options: [
-                { title: 'סוג', name: 'type', choices: [
+                { title: 'סוג מילוי', name: 'type', choices: [
                     { label: 'צמחוני', price: 0 },
                     { label: 'בשרי (+30)', price: 30 }
                 ]},
-                { title: 'גודל', name: 'size', choices: [
+                { title: 'גודל מנה', name: 'size', choices: [
                     { label: 'קטן', price: 0 },
                     { label: 'בינוני (+40)', price: 40 },
                     { label: 'גדול (+60)', price: 60 }
@@ -429,7 +411,7 @@
                     { label: 'צמחוני', price: 0 },
                     { label: 'עם עוף (+50)', price: 50 }
                 ]},
-                { title: 'גודל', name: 'size', choices: [
+                { title: 'גודל מנה', name: 'size', choices: [
                     { label: 'קטן', price: 0 },
                     { label: 'בינוני (+40)', price: 40 },
                     { label: 'גדול (+60)', price: 60 }
@@ -442,11 +424,11 @@
             basePrice: 120,
             image: 'כרוב ממולא.jpg',
             options: [
-                { title: 'סוג', name: 'type', choices: [
+                { title: 'סוג מילוי', name: 'type', choices: [
                     { label: 'צמחוני', price: 0 },
                     { label: 'בשרי (+50)', price: 50 }
                 ]},
-                { title: 'גודל', name: 'size', choices: [
+                { title: 'גודל מנה', name: 'size', choices: [
                     { label: 'קטן', price: 0 },
                     { label: 'בינוני (+40)', price: 40 },
                     { label: 'גדול (+60)', price: 60 }
@@ -497,11 +479,11 @@
             basePrice: 150,
             image: 'bg.jpg.1.png', 
             options: [
-                { title: 'סוג', name: 'type', choices: [
+                { title: 'סוג מילוי', name: 'type', choices: [
                     { label: 'צמחוני', price: 0 },
                     { label: 'בשרי (+30)', price: 30 }
                 ]},
-                { title: 'גודל', name: 'size', choices: [
+                { title: 'גודל סיר', name: 'size', choices: [
                     { label: 'קטן', price: 0 },
                     { label: 'בינוני (+50)', price: 50 },
                     { label: 'גדול (+100)', price: 100 }
@@ -525,14 +507,16 @@
             card.className = 'card';
             card.id = `card-${item.id}`;
             card.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="card-img" onerror="this.src='https://via.placeholder.com/300x150?text=תמונה'">
+                <img src="${item.image}" alt="${item.name}" class="card-img" onerror="this.src='https://placehold.co/400x300?text=אין+תמונה'">
                 <div class="card-content">
                     <div class="card-header">
                         <h3 class="card-title">${item.name}</h3>
                         <div class="card-price" id="price-${item.id}">${item.basePrice} ₪</div>
                     </div>
                     
-                    ${renderOptions(item)}
+                    <div class="options-container">
+                        ${renderOptions(item)}
+                    </div>
 
                     <div class="qty-control">
                         <button class="qty-btn" onclick="updateQty('${item.id}', -1)"><i class="fas fa-minus"></i></button>
@@ -636,7 +620,8 @@
         else footer.classList.remove('visible');
     }
 
- window.sendOrder = function() {
+    // --- הפונקציה החדשה לשליחת הודעה בוואטסאפ ---
+    window.sendOrder = function() {
         const name = document.getElementById('customerName').value.trim();
         const address = document.getElementById('address').value.trim();
         
@@ -650,7 +635,7 @@
             return alert('נא למלא כתובת למשלוח');
         }
 
-        // --- בדיקת תקינות (ולידציה) ---
+        // בדיקת תקינות (ולידציה)
         let validationError = false;
         menuItems.forEach(item => {
             const data = cart[item.id];
@@ -666,22 +651,22 @@
         });
 
         if (validationError) {
-            return alert('נא להשלים את הבחירות בפריטים המסומנים באדום.');
+            return alert('יש מנות בעגלה שלא נבחרו להן כל התוספות (גודל/סוג). המנות החסרות סומנו באדום.');
         }
 
-        // --- בניית ההודעה החדשה והנקייה ---
+        // --- בניית ההודעה ---
+        let message = `*הזמנה חדשה | המטבח של ודאד*\n`;
+        message += `--------------------\n`;
+        message += `👤 *שם:* ${name}\n`;
         
-        // כותרת
-        let message = `*הזמנה חדשה* | ודאד\n`;
-        message += `----------------\n`;
-        message += `👤 ${name}\n`;
         if (deliveryMethod === 'delivery') {
-            message += `📍 ${address}\n`;
+            message += `🛵 *משלוח:* ${address}\n`;
         } else {
-            message += `🛍️ איסוף עצמי\n`;
+            message += `🛍️ *איסוף עצמי* (ג׳וליס)\n`;
         }
-        message += `----------------\n`; // הפרדה בין פרטים למנות
         
+        message += `--------------------\n`;
+
         let total = 0;
         let cartHasItems = false;
 
@@ -689,40 +674,38 @@
             const data = cart[item.id];
             if (data.qty > 0) {
                 cartHasItems = true;
-                const itemPrice = item.basePrice + data.addonsPrice;
-                const subtotal = itemPrice * data.qty;
-                total += subtotal;
+                const singleItemPrice = item.basePrice + data.addonsPrice;
+                const totalItemPrice = singleItemPrice * data.qty;
+                total += totalItemPrice;
                 
-                // ניקוי הטקסט: הופך "גדול (+60)" ל-"גדול" בלבד
-                const cleanSelections = Object.values(data.selections).map(val => {
-                    return val.split(' (')[0]; // לוקח רק את הטקסט לפני הסוגריים של המחיר
-                });
-                
+                // מנקה את הטקסט של התוספות מהמחירים כדי שלא יהיה עמוס
+                // למשל: הופך "גדול (+60)" ל-"גדול"
+                const cleanSelections = Object.values(data.selections).map(val => val.split(' (')[0]);
                 const selectionText = cleanSelections.join(', ');
 
-                // שורה ראשונה: כמות ושם המנה (מודגש)
+                // שורה 1: שם המנה והכמות
                 message += `*${data.qty}x ${item.name}*\n`;
                 
-                // שורה שנייה (רק אם יש אופציות): פירוט נקי עם הזחה קלה
+                // שורה 2: פירוט בחירות (רק אם יש)
                 if(selectionText) {
                     message += `   ▫️ ${selectionText}\n`;
                 }
                 
-                // הערה: הסרתי את מחיר המנה הבודדת כדי למנוע עומס. 
-                // אם חשוב לך לראות מחיר לכל שורה, אפשר להחזיר.
+                // שורה 3: סיכום מחיר לפריט ספציפי זה (כולל התוספות והכמות)
+                // זה פותר את הבעיה שלא ידעת כמה עולה המנה עם התוספת
+                message += `   💰 ${totalItemPrice} ₪\n\n`; 
             }
         });
 
         if (!cartHasItems) return alert('העגלה ריקה');
 
-        message += `----------------\n`;
+        message += `--------------------\n`;
         
         if (deliveryMethod === 'delivery') {
             total += SHIPPING_COST;
-            message += `🛵 משלוח: ${SHIPPING_COST} ₪\n`;
+            message += `משלוח: ${SHIPPING_COST} ₪\n`;
         }
         
-        // שורת סיכום גדולה וברורה
         message += `💵 *סה"כ לתשלום: ${total} ₪*`;
 
         const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -734,6 +717,3 @@
 
 </body>
 </html>
-
-
-
