@@ -11,7 +11,7 @@
         :root {
             --primary: #2d3436;
             --accent: #27ae60; 
-            --gold: #d4ac0d; /* גוון זהב עדין להודעות */
+            --gold: #d4ac0d;
             --error: #e74c3c;
             --card-bg: rgba(255, 255, 255, 0.9);
             --radius: 16px;
@@ -330,8 +330,7 @@
         </div>
     </div>
 
-    <div id="menu-container" class="menu-grid">
-        </div>
+    <div id="menu-container" class="menu-grid"></div>
 
     <div class="order-form">
         <h3 class="form-title">סיום הזמנה</h3>
@@ -372,7 +371,7 @@
 </div>
 
 <script>
-    // --- Data Configuration ---
+    // --- Data ---
     const menuItems = [
         {
             id: 'zucchini',
@@ -541,9 +540,7 @@
 
     window.updateItemConfig = function(itemId, groupName, input) {
         const item = menuItems.find(i => i.id === itemId);
-        
         document.getElementById(`card-${itemId}`).classList.remove('error-border');
-
         cart[itemId].selections[groupName] = input.getAttribute('data-label');
         
         let totalAddons = 0;
@@ -561,9 +558,7 @@
         const currentQty = cart[itemId].qty;
         const newQty = Math.max(0, currentQty + change);
         
-        if(newQty > 0) {
-            document.getElementById(`card-${itemId}`).classList.remove('error-border');
-        }
+        if(newQty > 0) document.getElementById(`card-${itemId}`).classList.remove('error-border');
 
         cart[itemId].qty = newQty;
         document.getElementById(`qty-${itemId}`).innerText = newQty;
@@ -590,7 +585,6 @@
     function calculateTotal() {
         let total = 0;
         let hasItems = false;
-
         menuItems.forEach(item => {
             const data = cart[item.id];
             if (data.qty > 0) {
@@ -598,11 +592,7 @@
                 hasItems = true;
             }
         });
-
-        if (deliveryMethod === 'delivery' && hasItems) {
-            total += SHIPPING_COST;
-        }
-
+        if (deliveryMethod === 'delivery' && hasItems) total += SHIPPING_COST;
         document.getElementById('totalPrice').innerText = total;
         
         const footer = document.getElementById('stickyFooter');
@@ -610,7 +600,7 @@
         else footer.classList.remove('visible');
     }
 
-    // --- שליחת הזמנה לוואטסאפ ---
+    // --- WhatsApp Logic (Fixed Alignment) ---
     window.sendOrder = function() {
         const name = document.getElementById('customerName').value.trim();
         const address = document.getElementById('address').value.trim();
@@ -625,14 +615,12 @@
             return alert('נא למלא כתובת למשלוח');
         }
 
-        // ולידציה
         let validationError = false;
         menuItems.forEach(item => {
             const data = cart[item.id];
             if (data.qty > 0) {
                 const requiredOptions = item.options ? item.options.length : 0;
                 const selectedOptions = Object.keys(data.selections).length;
-                
                 if (selectedOptions < requiredOptions) {
                     document.getElementById(`card-${item.id}`).classList.add('error-border');
                     validationError = true;
@@ -640,11 +628,9 @@
             }
         });
 
-        if (validationError) {
-            return alert('יש מנות שלא נבחרו להן כל התוספות.');
-        }
+        if (validationError) return alert('נא להשלים בחירות חסרות');
 
-        // בניית ההודעה
+        // Header
         let message = `*הזמנה חדשה | המטבח של ודאד*\n`;
         message += `--------------------\n`;
         message += `👤 *שם:* ${name}\n`;
@@ -654,7 +640,6 @@
         } else {
             message += `🛍️ *איסוף עצמי* (ג׳וליס)\n`;
         }
-        
         message += `--------------------\n`;
 
         let total = 0;
@@ -668,16 +653,21 @@
                 const totalItemPrice = singleItemPrice * data.qty;
                 total += totalItemPrice;
                 
-                // שינוי קריטי: לוקח את הטקסט המלא כולל המחיר (+30)
                 const selectionText = Object.values(data.selections).join(', ');
 
-                message += `*${data.qty}x ${item.name}*\n`;
+                // --- תיקון היישור: ---
+                // 1. השורה מתחילה בסימן חזק (🔹) ואז עברית.
+                // 2. הכמות עברה לסוף (x1) כדי לא לבלבל את האלגוריתם.
+                message += `🔹 *${item.name}* (x${data.qty})\n`;
                 
+                // --- איחוד שורות: תוספות | מחיר ---
+                let detailsLine = `   `; // הזחה קטנה
                 if(selectionText) {
-                    message += `   ▫️ ${selectionText}\n`;
+                    detailsLine += `${selectionText} | `;
                 }
+                detailsLine += `💰 ${totalItemPrice} ₪`;
                 
-                message += `   💰 ${totalItemPrice} ₪\n\n`; 
+                message += `${detailsLine}\n\n`; 
             }
         });
 
