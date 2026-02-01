@@ -11,14 +11,14 @@
         :root {
             --primary: #2d3436;
             --accent: #27ae60; 
-            --card-bg: rgba(255, 255, 255, 0.95); /* רקע חצי שקוף למנות */
+            --error: #e74c3c;
+            --card-bg: rgba(255, 255, 255, 0.95);
             --radius: 12px;
         }
 
         body {
             font-family: 'Rubik', sans-serif;
-            /* החזרת תמונת הרקע */
-            background-image: url(רקע.png); 
+            background-image: url('רקע.png'); 
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -28,12 +28,12 @@
         }
 
         .container {
-            max-width: 900px; /* הרחבתי מעט כדי שייכנסו יותר מנות בשורה */
+            max-width: 900px;
             margin: 0 auto;
             padding: 15px;
         }
 
-        /* Hero Compact */
+        /* Hero */
         .hero {
             text-align: center;
             background: rgba(255, 255, 255, 0.9);
@@ -62,11 +62,10 @@
             font-weight: bold;
         }
 
-        /* Compact Grid */
+        /* Grid */
         .menu-grid {
             display: grid;
-            /* הקטנתי את המינימום ל-220px כדי לאפשר יותר כרטיסים בשורה */
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); 
             gap: 15px;
         }
 
@@ -77,15 +76,19 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s;
             border: 1px solid rgba(0,0,0,0.05);
+            transition: 0.3s;
         }
-
-        .card:hover { transform: translateY(-3px); }
+        
+        /* סימון כרטיס שיש בו שגיאה */
+        .card.error-border {
+            border: 2px solid var(--error);
+            box-shadow: 0 0 10px rgba(231, 76, 60, 0.3);
+        }
 
         .card-img {
             width: 100%;
-            height: 130px; /* הקטנת גובה התמונה */
+            height: 140px;
             object-fit: cover;
         }
 
@@ -104,7 +107,7 @@
         }
 
         .card-title {
-            font-size: 1.1rem; /* פונט קטן יותר */
+            font-size: 1.1rem;
             font-weight: 700;
             margin: 0;
             line-height: 1.2;
@@ -115,58 +118,58 @@
             font-weight: 700;
             color: var(--accent);
             white-space: nowrap;
-            margin-right: 8px;
         }
 
-        /* Compact Options */
+        /* Options */
         .options-group {
             margin-bottom: 8px;
             background: rgba(0,0,0,0.03);
-            padding: 6px;
+            padding: 8px;
             border-radius: 6px;
         }
 
         .options-title {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             font-weight: bold;
             display: block;
             color: #666;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
         }
 
         .radio-option {
             display: flex;
             align-items: center;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
             cursor: pointer;
-            font-size: 0.85rem; /* הקטנת טקסט באפשרויות */
+            font-size: 0.9rem;
         }
 
         .radio-option input {
-            margin-left: 6px;
+            margin-left: 8px;
             accent-color: var(--accent);
-            transform: scale(0.9);
+            width: 16px;
+            height: 16px;
         }
 
-        /* Compact Qty Control */
+        /* Qty Control */
         .qty-control {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             margin-top: auto;
-            padding-top: 10px;
+            padding-top: 12px;
             border-top: 1px solid #eee;
         }
 
         .qty-btn {
-            width: 28px;
-            height: 28px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             border: none;
             background: #f0f0f0;
             color: #333;
-            font-size: 0.9rem;
+            font-size: 1rem;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -178,13 +181,13 @@
         .qty-btn:active { transform: scale(0.9); }
         
         .qty-display {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            width: 20px;
+            width: 25px;
             text-align: center;
         }
 
-        /* Form & Footer */
+        /* Form */
         .order-form {
             background: rgba(255, 255, 255, 0.95);
             padding: 20px;
@@ -195,19 +198,20 @@
 
         .form-input {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
             border-radius: 8px;
             box-sizing: border-box;
             font-family: inherit;
+            font-size: 1rem;
         }
 
         .delivery-toggle { display: flex; gap: 10px; margin-bottom: 15px; }
         
         .toggle-option {
-            flex: 1; text-align: center; padding: 10px;
+            flex: 1; text-align: center; padding: 12px;
             border: 1px solid #ddd; border-radius: 8px;
-            cursor: pointer; background: #fff; font-size: 0.9rem;
+            cursor: pointer; background: #fff; font-size: 0.95rem;
         }
         
         .toggle-option.selected {
@@ -224,7 +228,7 @@
             max-width: 500px;
             background: #2c3e50;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 50px;
             display: flex;
             justify-content: space-between;
@@ -238,9 +242,9 @@
         
         .whatsapp-btn {
             background: #25D366; color: white; border: none;
-            padding: 8px 20px; border-radius: 30px;
-            font-weight: bold; font-size: 0.95rem; cursor: pointer;
-            display: flex; align-items: center; gap: 6px;
+            padding: 10px 24px; border-radius: 30px;
+            font-weight: bold; font-size: 1rem; cursor: pointer;
+            display: flex; align-items: center; gap: 8px;
         }
 
         .hidden { display: none; }
@@ -291,7 +295,7 @@
 <div id="stickyFooter" class="sticky-footer">
     <div>
         <span style="font-size: 0.8rem; opacity: 0.8;">סה"כ:</span>
-        <span style="font-size: 1.2rem; font-weight: bold;"><span id="totalPrice">0</span> ₪</span>
+        <span style="font-size: 1.3rem; font-weight: bold;"><span id="totalPrice">0</span> ₪</span>
     </div>
     <button class="whatsapp-btn" onclick="sendOrder()">
         שלח <i class="fab fa-whatsapp"></i>
@@ -299,7 +303,8 @@
 </div>
 
 <script>
-    // --- Data Configuration (כל המנות מהקוד המקורי) ---
+    // --- Data Configuration ---
+    // הורדתי את כל ה-checked: true כדי שכלום לא יהיה מסומן בהתחלה
     const menuItems = [
         {
             id: 'zucchini',
@@ -308,11 +313,11 @@
             image: 'קישואים.jpg',
             options: [
                 { title: 'סוג', name: 'type', choices: [
-                    { label: 'צמחוני', price: 0, checked: true },
+                    { label: 'צמחוני', price: 0 },
                     { label: 'בשרי (+30)', price: 30 }
                 ]},
                 { title: 'גודל', name: 'size', choices: [
-                    { label: 'קטן', price: 0, checked: true },
+                    { label: 'קטן', price: 0 },
                     { label: 'בינוני (+40)', price: 40 },
                     { label: 'גדול (+60)', price: 60 }
                 ]}
@@ -325,11 +330,11 @@
             image: 'פריקה.jpg',
             options: [
                 { title: 'סוג', name: 'type', choices: [
-                    { label: 'צמחוני', price: 0, checked: true },
+                    { label: 'צמחוני', price: 0 },
                     { label: 'עם עוף (+50)', price: 50 }
                 ]},
                 { title: 'גודל', name: 'size', choices: [
-                    { label: 'קטן', price: 0, checked: true },
+                    { label: 'קטן', price: 0 },
                     { label: 'בינוני (+40)', price: 40 },
                     { label: 'גדול (+60)', price: 60 }
                 ]}
@@ -342,11 +347,11 @@
             image: 'כרוב ממולא.jpg',
             options: [
                 { title: 'סוג', name: 'type', choices: [
-                    { label: 'צמחוני', price: 0, checked: true },
+                    { label: 'צמחוני', price: 0 },
                     { label: 'בשרי (+50)', price: 50 }
                 ]},
                 { title: 'גודל', name: 'size', choices: [
-                    { label: 'קטן', price: 0, checked: true },
+                    { label: 'קטן', price: 0 },
                     { label: 'בינוני (+40)', price: 40 },
                     { label: 'גדול (+60)', price: 60 }
                 ]}
@@ -359,7 +364,7 @@
             image: 'chicken.jpg.png',
             options: [
                 { title: 'תוספת צד', name: 'side', choices: [
-                    { label: 'סלט (כלול)', price: 0, checked: true },
+                    { label: 'סלט (כלול)', price: 0 },
                     { label: 'מרק (+60)', price: 60 }
                 ]}
             ]
@@ -371,7 +376,7 @@
             image: 'maqluba.jpg.png',
             options: [
                 { title: 'גודל סיר', name: 'size', choices: [
-                    { label: 'קטן', price: 0, checked: true },
+                    { label: 'קטן', price: 0 },
                     { label: 'בינוני (+50)', price: 50 },
                     { label: 'גדול (+100)', price: 100 }
                 ]}
@@ -384,7 +389,7 @@
             image: 'מגדרה.jpg',
             options: [
                 { title: 'גודל סיר', name: 'size', choices: [
-                    { label: 'קטן', price: 0, checked: true },
+                    { label: 'קטן', price: 0 },
                     { label: 'בינוני (+30)', price: 30 },
                     { label: 'גדול (+50)', price: 50 }
                 ]}
@@ -397,11 +402,11 @@
             image: 'bg.jpg.1.png', 
             options: [
                 { title: 'סוג', name: 'type', choices: [
-                    { label: 'צמחוני', price: 0, checked: true },
+                    { label: 'צמחוני', price: 0 },
                     { label: 'בשרי (+30)', price: 30 }
                 ]},
                 { title: 'גודל', name: 'size', choices: [
-                    { label: 'קטן', price: 0, checked: true },
+                    { label: 'קטן', price: 0 },
                     { label: 'בינוני (+50)', price: 50 },
                     { label: 'גדול (+100)', price: 100 }
                 ]}
@@ -418,28 +423,18 @@
         const container = document.getElementById('menu-container');
         
         menuItems.forEach(item => {
+            // אתחול סל ריק ללא בחירות
             cart[item.id] = { qty: 0, addonsPrice: 0, selections: {} };
             
-            let initialAddons = 0;
-            if(item.options) {
-                item.options.forEach(grp => {
-                    const defaultOpt = grp.choices.find(c => c.checked);
-                    if(defaultOpt) {
-                        initialAddons += defaultOpt.price;
-                        cart[item.id].selections[grp.name] = defaultOpt.label;
-                    }
-                });
-            }
-            cart[item.id].addonsPrice = initialAddons;
-
             const card = document.createElement('div');
             card.className = 'card';
+            card.id = `card-${item.id}`; // מזהה לכרטיס כדי שנוכל לסמן אותו באדום אם יש שגיאה
             card.innerHTML = `
                 <img src="${item.image}" alt="${item.name}" class="card-img" onerror="this.src='https://via.placeholder.com/300x150?text=תמונה'">
                 <div class="card-content">
                     <div class="card-header">
                         <h3 class="card-title">${item.name}</h3>
-                        <div class="card-price" id="price-${item.id}">${item.basePrice + initialAddons} ₪</div>
+                        <div class="card-price" id="price-${item.id}">${item.basePrice} ₪</div>
                     </div>
                     
                     ${renderOptions(item)}
@@ -460,14 +455,13 @@
         
         return item.options.map((group) => `
             <div class="options-group">
-                <span class="options-title">${group.title}:</span>
+                <span class="options-title">${group.title} <span style="color:red">*</span>:</span>
                 ${group.choices.map((choice) => `
                     <label class="radio-option">
                         <input type="radio" 
                                name="${item.id}-${group.name}" 
                                value="${choice.price}" 
                                data-label="${choice.label}"
-                               ${choice.checked ? 'checked' : ''}
                                onchange="updateItemConfig('${item.id}', '${group.name}', this)">
                         ${choice.label}
                     </label>
@@ -479,6 +473,9 @@
     window.updateItemConfig = function(itemId, groupName, input) {
         const item = menuItems.find(i => i.id === itemId);
         
+        // הסרת סימון שגיאה אם קיים
+        document.getElementById(`card-${itemId}`).classList.remove('error-border');
+
         cart[itemId].selections[groupName] = input.getAttribute('data-label');
         
         let totalAddons = 0;
@@ -495,6 +492,12 @@
     window.updateQty = function(itemId, change) {
         const currentQty = cart[itemId].qty;
         const newQty = Math.max(0, currentQty + change);
+        
+        // אם מוסיפים כמות, נוריד את סימון השגיאה (אם היה)
+        if(newQty > 0) {
+            document.getElementById(`card-${itemId}`).classList.remove('error-border');
+        }
+
         cart[itemId].qty = newQty;
         document.getElementById(`qty-${itemId}`).innerText = newQty;
         calculateTotal();
@@ -544,9 +547,42 @@
         const name = document.getElementById('customerName').value.trim();
         const address = document.getElementById('address').value.trim();
         
-        if (!name) return alert('נא למלא שם מלא');
-        if (deliveryMethod === 'delivery' && !address) return alert('נא למלא כתובת למשלוח');
+        // בדיקת שם
+        if (!name) {
+            document.getElementById('customerName').focus();
+            return alert('נא למלא שם מלא');
+        }
+        
+        // בדיקת כתובת אם זה משלוח
+        if (deliveryMethod === 'delivery' && !address) {
+            document.getElementById('address').focus();
+            return alert('נא למלא כתובת למשלוח');
+        }
 
+        // --- בדיקת ולידציה חשובה ---
+        // האם המשתמש בחר כמות אבל שכח לסמן אופציות?
+        let validationError = false;
+        
+        menuItems.forEach(item => {
+            const data = cart[item.id];
+            if (data.qty > 0) {
+                // בדיקה האם מספר הבחירות שבוצעו תואם למספר הקבוצות הקיימות
+                const requiredOptions = item.options ? item.options.length : 0;
+                const selectedOptions = Object.keys(data.selections).length;
+                
+                if (selectedOptions < requiredOptions) {
+                    // סימון הכרטיס באדום
+                    document.getElementById(`card-${item.id}`).classList.add('error-border');
+                    validationError = true;
+                }
+            }
+        });
+
+        if (validationError) {
+            return alert('שים לב: יש מנות שבחרת להן כמות אך לא סימנת את כל האפשרויות (סוג/גודל).\nאנא השלם את הבחירה במנות המסומנות באדום.');
+        }
+
+        // יצירת ההודעה
         let message = `*הזמנה חדשה: ${name}*\n\n`;
         let total = 0;
 
@@ -584,5 +620,3 @@
 
 </body>
 </html>
-
-
