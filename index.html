@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>המטבח של ודאד - אוכל גלילי אותנטי</title>
+    
+    <meta property="og:title" content="המטבח של ודאד - הזמנות לשבת">
+    <meta property="og:description" content="אוכל גלילי אותנטי בעבודת יד. הזמנות עד יום רביעי, חלוקה בשישי.">
+    <meta property="og:image" content="preview.jpg">
+    
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -13,7 +18,7 @@
             --accent: #27ae60; 
             --gold: #d4ac0d;
             --error: #e74c3c;
-            --card-bg: rgba(255, 255, 255, 0.9);
+            --card-bg: rgba(255, 255, 255, 0.95);
             --radius: 16px;
         }
 
@@ -240,7 +245,16 @@
             font-size: 1rem;
         }
         
-        .form-input:focus { background: #fff; outline: none; border-color: var(--accent); }
+        /* עיצוב Select כמו Input */
+        select.form-input {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: left 15px top 50%;
+            background-size: 12px auto;
+        }
+        
+        .form-input:focus { background-color: #fff; outline: none; border-color: var(--accent); }
 
         .delivery-toggle { display: flex; gap: 12px; margin-bottom: 20px; }
         
@@ -345,349 +359,14 @@
                 <i class="fas fa-shopping-bag"></i> איסוף עצמי
             </div>
             <div class="toggle-option" onclick="setDelivery('delivery')">
-                <i class="fas fa-motorcycle"></i> משלוח (50₪)
+                <i class="fas fa-motorcycle"></i> משלוח (לפי אזור)
             </div>
         </div>
 
-        <div id="addressField" class="hidden form-group">
-            <label class="form-label">כתובת למשלוח</label>
-            <input type="text" id="address" class="form-input" placeholder="יישוב, רחוב ומספר בית...">
-        </div>
-        
-        <div id="pickupInfo">
-            📍 <strong>נקודת איסוף:</strong> ג׳וליס, אלמע'ארה 8 (כניסה ראשית)
-        </div>
-    </div>
-</div>
-
-<div id="stickyFooter" class="sticky-footer">
-    <div class="total-section">
-        <span class="total-label">סה"כ לתשלום</span>
-        <span class="total-amount"><span id="totalPrice">0</span> ₪</span>
-    </div>
-    <button class="whatsapp-btn" onclick="sendOrder()">
-        שלח הזמנה <i class="fab fa-whatsapp"></i>
-    </button>
-</div>
-
-<script>
-    // --- Data ---
-    const menuItems = [
-        {
-            id: 'zucchini',
-            name: 'קישוא ממולא',
-            basePrice: 120,
-            image: 'קישואים.jpg',
-            options: [
-                { title: 'סוג מילוי', name: 'type', choices: [
-                    { label: 'צמחוני', price: 0 },
-                    { label: 'בשרי (+30)', price: 30 }
-                ]},
-                { title: 'גודל מנה', name: 'size', choices: [
-                    { label: 'קטן', price: 0 },
-                    { label: 'בינוני (+40)', price: 40 },
-                    { label: 'גדול (+60)', price: 60 }
-                ]}
-            ]
-        },
-        {
-            id: 'freekeh',
-            name: 'פריקה',
-            basePrice: 120,
-            image: 'פריקה.jpg',
-            options: [
-                { title: 'סוג', name: 'type', choices: [
-                    { label: 'צמחוני', price: 0 },
-                    { label: 'עם עוף (+50)', price: 50 }
-                ]},
-                { title: 'גודל מנה', name: 'size', choices: [
-                    { label: 'קטן', price: 0 },
-                    { label: 'בינוני (+40)', price: 40 },
-                    { label: 'גדול (+60)', price: 60 }
-                ]}
-            ]
-        },
-        {
-            id: 'cabbage',
-            name: 'כרוב ממולא',
-            basePrice: 120,
-            image: 'כרוב ממולא.jpg',
-            options: [
-                { title: 'סוג מילוי', name: 'type', choices: [
-                    { label: 'צמחוני', price: 0 },
-                    { label: 'בשרי (+50)', price: 50 }
-                ]},
-                { title: 'גודל מנה', name: 'size', choices: [
-                    { label: 'קטן', price: 0 },
-                    { label: 'בינוני (+40)', price: 40 },
-                    { label: 'גדול (+60)', price: 60 }
-                ]}
-            ]
-        },
-        {
-            id: 'chicken',
-            name: 'עוף ממולא',
-            basePrice: 200,
-            image: 'chicken.jpg.png',
-            options: [
-                { title: 'תוספת צד', name: 'side', choices: [
-                    { label: 'סלט (כלול)', price: 0 },
-                    { label: 'מרק (+60)', price: 60 }
-                ]}
-            ]
-        },
-        {
-            id: 'makluba',
-            name: 'מקלובה',
-            basePrice: 150,
-            image: 'maqluba.jpg.png',
-            options: [
-                { title: 'גודל סיר', name: 'size', choices: [
-                    { label: 'קטן', price: 0 },
-                    { label: 'בינוני (+50)', price: 50 },
-                    { label: 'גדול (+100)', price: 100 }
-                ]}
-            ]
-        },
-        {
-            id: 'majadra',
-            name: 'מג\'דרה',
-            basePrice: 120,
-            image: 'מגדרה.jpg',
-            options: [
-                { title: 'גודל סיר', name: 'size', choices: [
-                    { label: 'קטן', price: 0 },
-                    { label: 'בינוני (+30)', price: 30 },
-                    { label: 'גדול (+50)', price: 50 }
-                ]}
-            ]
-        },
-        {
-            id: 'vine_leaves',
-            name: 'סיר עלי גפן',
-            basePrice: 150,
-            image: 'bg.jpg.1.png', 
-            options: [
-                { title: 'סוג מילוי', name: 'type', choices: [
-                    { label: 'צמחוני', price: 0 },
-                    { label: 'בשרי (+30)', price: 30 }
-                ]},
-                { title: 'גודל סיר', name: 'size', choices: [
-                    { label: 'קטן', price: 0 },
-                    { label: 'בינוני (+50)', price: 50 },
-                    { label: 'גדול (+100)', price: 100 }
-                ]}
-            ]
-        }
-    ];
-
-    const cart = {}; 
-    let deliveryMethod = 'pickup';
-    const SHIPPING_COST = 50;
-    const PHONE_NUMBER = "972507125200";
-
-    function init() {
-        const container = document.getElementById('menu-container');
-        
-        menuItems.forEach(item => {
-            cart[item.id] = { qty: 0, addonsPrice: 0, selections: {} };
-            
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.id = `card-${item.id}`;
-            card.innerHTML = `
-                <img src="${item.image}" alt="${item.name}" class="card-img" onerror="this.src='https://placehold.co/400x300?text=אין+תמונה'">
-                <div class="card-content">
-                    <div class="card-header">
-                        <h3 class="card-title">${item.name}</h3>
-                        <div class="card-price" id="price-${item.id}">${item.basePrice} ₪</div>
-                    </div>
-                    
-                    <div class="options-container">
-                        ${renderOptions(item)}
-                    </div>
-
-                    <div class="qty-control">
-                        <button class="qty-btn" onclick="updateQty('${item.id}', -1)"><i class="fas fa-minus"></i></button>
-                        <span class="qty-display" id="qty-${item.id}">0</span>
-                        <button class="qty-btn add" onclick="updateQty('${item.id}', 1)"><i class="fas fa-plus"></i></button>
-                    </div>
-                </div>
-            `;
-            container.appendChild(card);
-        });
-    }
-
-    function renderOptions(item) {
-        if (!item.options || item.options.length === 0) return '';
-        
-        return item.options.map((group) => `
-            <div class="options-group">
-                <span class="options-title">${group.title} <span style="color:red">*</span>:</span>
-                ${group.choices.map((choice) => `
-                    <label class="radio-option">
-                        <input type="radio" 
-                               name="${item.id}-${group.name}" 
-                               value="${choice.price}" 
-                               data-label="${choice.label}"
-                               onchange="updateItemConfig('${item.id}', '${group.name}', this)">
-                        ${choice.label}
-                    </label>
-                `).join('')}
-            </div>
-        `).join('');
-    }
-
-    window.updateItemConfig = function(itemId, groupName, input) {
-        const item = menuItems.find(i => i.id === itemId);
-        document.getElementById(`card-${itemId}`).classList.remove('error-border');
-        cart[itemId].selections[groupName] = input.getAttribute('data-label');
-        
-        let totalAddons = 0;
-        item.options.forEach(grp => {
-            const checked = document.querySelector(`input[name="${itemId}-${grp.name}"]:checked`);
-            if(checked) totalAddons += parseInt(checked.value);
-        });
-
-        cart[itemId].addonsPrice = totalAddons;
-        document.getElementById(`price-${itemId}`).innerText = (item.basePrice + totalAddons) + " ₪";
-        calculateTotal();
-    };
-
-    window.updateQty = function(itemId, change) {
-        const currentQty = cart[itemId].qty;
-        const newQty = Math.max(0, currentQty + change);
-        
-        if(newQty > 0) document.getElementById(`card-${itemId}`).classList.remove('error-border');
-
-        cart[itemId].qty = newQty;
-        document.getElementById(`qty-${itemId}`).innerText = newQty;
-        calculateTotal();
-    };
-
-    window.setDelivery = function(type) {
-        deliveryMethod = type;
-        const options = document.querySelectorAll('.toggle-option');
-        options.forEach(opt => opt.classList.remove('selected'));
-        
-        if (type === 'delivery') {
-            options[1].classList.add('selected');
-            document.getElementById('addressField').classList.remove('hidden');
-            document.getElementById('pickupInfo').classList.add('hidden');
-        } else {
-            options[0].classList.add('selected');
-            document.getElementById('addressField').classList.add('hidden');
-            document.getElementById('pickupInfo').classList.remove('hidden');
-        }
-        calculateTotal();
-    };
-
-    function calculateTotal() {
-        let total = 0;
-        let hasItems = false;
-        menuItems.forEach(item => {
-            const data = cart[item.id];
-            if (data.qty > 0) {
-                total += (item.basePrice + data.addonsPrice) * data.qty;
-                hasItems = true;
-            }
-        });
-        if (deliveryMethod === 'delivery' && hasItems) total += SHIPPING_COST;
-        document.getElementById('totalPrice').innerText = total;
-        
-        const footer = document.getElementById('stickyFooter');
-        if (hasItems) footer.classList.add('visible');
-        else footer.classList.remove('visible');
-    }
-
-    // --- WhatsApp Logic (Fixed Alignment) ---
-    window.sendOrder = function() {
-        const name = document.getElementById('customerName').value.trim();
-        const address = document.getElementById('address').value.trim();
-        
-        if (!name) {
-            document.getElementById('customerName').focus();
-            return alert('נא למלא שם מלא');
-        }
-        
-        if (deliveryMethod === 'delivery' && !address) {
-            document.getElementById('address').focus();
-            return alert('נא למלא כתובת למשלוח');
-        }
-
-        let validationError = false;
-        menuItems.forEach(item => {
-            const data = cart[item.id];
-            if (data.qty > 0) {
-                const requiredOptions = item.options ? item.options.length : 0;
-                const selectedOptions = Object.keys(data.selections).length;
-                if (selectedOptions < requiredOptions) {
-                    document.getElementById(`card-${item.id}`).classList.add('error-border');
-                    validationError = true;
-                }
-            }
-        });
-
-        if (validationError) return alert('נא להשלים בחירות חסרות');
-
-        // Header
-        let message = `*הזמנה חדשה | המטבח של ודאד*\n`;
-        message += `--------------------\n`;
-        message += `👤 *שם:* ${name}\n`;
-        
-        if (deliveryMethod === 'delivery') {
-            message += `🛵 *משלוח:* ${address}\n`;
-        } else {
-            message += `🛍️ *איסוף עצמי* (ג׳וליס)\n`;
-        }
-        message += `--------------------\n`;
-
-        let total = 0;
-        let cartHasItems = false;
-
-        menuItems.forEach(item => {
-            const data = cart[item.id];
-            if (data.qty > 0) {
-                cartHasItems = true;
-                const singleItemPrice = item.basePrice + data.addonsPrice;
-                const totalItemPrice = singleItemPrice * data.qty;
-                total += totalItemPrice;
-                
-                const selectionText = Object.values(data.selections).join(', ');
-
-                // --- תיקון היישור: ---
-                // 1. השורה מתחילה בסימן חזק (🔹) ואז עברית.
-                // 2. הכמות עברה לסוף (x1) כדי לא לבלבל את האלגוריתם.
-                message += `🔹 *${item.name}* (x${data.qty})\n`;
-                
-                // --- איחוד שורות: תוספות | מחיר ---
-                let detailsLine = `   `; // הזחה קטנה
-                if(selectionText) {
-                    detailsLine += `${selectionText} | `;
-                }
-                detailsLine += `💰 ${totalItemPrice} ₪`;
-                
-                message += `${detailsLine}\n\n`; 
-            }
-        });
-
-        if (!cartHasItems) return alert('העגלה ריקה');
-
-        message += `--------------------\n`;
-        
-        if (deliveryMethod === 'delivery') {
-            total += SHIPPING_COST;
-            message += `משלוח: ${SHIPPING_COST} ₪\n`;
-        }
-        
-        message += `💵 *סה"כ לתשלום: ${total} ₪*`;
-
-        const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(message)}`;
-        window.open(url, '_blank');
-    };
-
-    init();
-</script>
-
-</body>
-</html>
+        <div id="addressField" class="hidden">
+            <div class="form-group">
+                <label class="form-label">אזור חלוקה <span style="color:red">*</span></label>
+                <select id="citySelect" class="form-input" onchange="updateShipping()">
+                    <option value="" disabled selected>בחר עיר מהרשימה...</option>
+                    <option value="50">ג׳וליס / ירכא / כפר יסיף (50 ₪)</option>
+                    <option value="50
