@@ -8,6 +8,64 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+
+
+        /* Notice Card Design */
+        .notice-card {
+            background: rgba(255, 252, 235, 0.95); /* רקע שמנת/צהבהב עדין */
+            border-right: 6px solid #f1c40f; /* פס הדגשה בצד ימין */
+            border-radius: var(--radius);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+            font-size: 0.95rem;
+            color: #2c3e50;
+        }
+
+        .notice-card h3 {
+            margin: 0 0 10px 0;
+            color: #d35400; /* צבע כותרת כתום כהה */
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .notice-card ul {
+            margin: 0;
+            padding-right: 20px; /* הזחה לרשימה מימין */
+            list-style-type: none; /* ביטול הנקודות הרגילות */
+        }
+
+        .notice-card li {
+            position: relative;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        /* יצירת נקודות מעוצבות לרשימה */
+        .notice-card li::before {
+            content: "•";
+            color: #f1c40f;
+            font-weight: bold;
+            font-size: 1.2em;
+            position: absolute;
+            right: -15px;
+        }
+
+        .notice-card strong {
+            font-weight: 700;
+        }
+
+        .phone-link {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px dotted #2c3e50;
+        }
+
+        
         :root {
             --primary: #2d3436;
             --accent: #27ae60; 
@@ -272,6 +330,26 @@
 
 <div class="container">
     <div class="hero">
+
+        <div class="notice-card">
+        <h3><i class="fas fa-clock"></i> זמני הזמנות וחלוקה</h3>
+        <ul>
+            <li>
+                <strong>סגירת הזמנות:</strong> ניתן להזמין עד יום רביעי בשעה 12:00 בצהריים.
+            </li>
+            <li>
+                <strong>קונספט:</strong> האוכל מוכן טרי ומוגש בימי שישי בלבד (לכבוד שבת).
+            </li>
+            <li>
+                <strong>שעות חלוקה ומשלוחים:</strong> ימי שישי בין השעות 12:00 - 16:00.
+            </li>
+            <li>
+                <strong>לבירורים נוספים:</strong> <a href="tel:0507125200" class="phone-link">050-7125200</a>
+            </li>
+        </ul>
+    </div>
+
+        
         <h1>המטבח של ודאד</h1>
         <p>🌿 אוכל גלילי אותנטי | עבודת יד 🌿</p>
         <a href="https://waze.com/ul?q=Julis" target="_blank" class="waze-btn">
@@ -656,5 +734,6 @@
 
 </body>
 </html>
+
 
 
